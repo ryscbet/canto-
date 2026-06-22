@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>粵語精英 - Cantonese Professional Learning Suite</title>
+  <title>粵語精英 - Cantonese Pro Learning Suite</title>
   <style>
     :root {
       --bg-darkest: #0a0a0c;
@@ -24,7 +24,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
@@ -36,7 +36,7 @@
       overflow: hidden;
     }
 
-    /* Pinned Global Header Area */
+    /* Header Panel */
     header {
       background-color: var(--bg-dark);
       border-bottom: 2px solid var(--border-color);
@@ -44,17 +44,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 10;
       flex-shrink: 0;
+      z-index: 10;
     }
 
     .brand-section h1 {
       font-size: 1.4rem;
       color: var(--pink-primary);
       letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     .brand-section p {
@@ -94,10 +91,10 @@
       height: 100%;
       background: linear-gradient(90deg, var(--pink-dark), var(--pink-primary));
       width: 0%;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 0.4s ease;
     }
 
-    /* Toggle Switch Component */
+    /* Character Toggle Button Switch */
     .toggle-container {
       display: flex;
       align-items: center;
@@ -125,11 +122,7 @@
       height: 22px;
     }
 
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    .switch input { opacity: 0; width: 0; height: 0; }
 
     .slider {
       position: absolute;
@@ -163,14 +156,14 @@
       background-color: var(--pink-light);
     }
 
-    /* Main Workspace Shell */
+    /* App Workspace */
     .app-workspace {
       display: flex;
       flex: 1;
       overflow: hidden;
     }
 
-    /* Sidebar Navigation Navigation Map */
+    /* Sidebar Navigation Map */
     .sidebar-roadmap {
       width: 340px;
       background-color: var(--bg-dark);
@@ -183,136 +176,88 @@
 
     .roadmap-header {
       padding: 15px 20px;
-      border-bottom: 1px solid var(--border-color);
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
       background-color: rgba(0,0,0,0.2);
-    }
-
-    .module-group {
       border-bottom: 1px solid var(--border-color);
     }
 
-    .module-trigger {
+    .section-item {
       width: 100%;
-      padding: 15px 20px;
+      padding: 18px 20px;
       background: none;
       border: none;
-      color: var(--text-main);
+      color: var(--text-muted);
       text-align: left;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: background-color 0.2s;
-    }
-
-    .module-trigger:hover {
-      background-color: var(--bg-surface);
-    }
-
-    .module-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-
-    .module-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .module-group.active .module-title {
-      color: var(--pink-primary);
-    }
-
-    .module-meta {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .lesson-list {
-      background-color: var(--bg-darkest);
-      display: none;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .module-group.active .lesson-list {
-      display: block;
-      max-height: max-content;
-    }
-
-    .lesson-item {
-      width: 100%;
-      padding: 12px 25px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      text-align: left;
-      cursor: pointer;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       transition: all 0.2s;
-      border-left: 3px solid transparent;
+      border-left: 4px solid transparent;
+      border-bottom: 1px solid var(--border-color);
     }
 
-    .lesson-item:hover {
+    .section-item:hover {
       background-color: var(--bg-surface);
       color: var(--text-main);
     }
 
-    .lesson-item.active {
-      background-color: rgba(255, 141, 161, 0.1);
+    .section-item.active {
+      background-color: rgba(255, 141, 161, 0.06);
       color: var(--pink-primary);
       border-left-color: var(--pink-primary);
     }
 
-    .lesson-item.understood {
-      opacity: 0.5;
+    .section-item.understood {
+      opacity: 0.4;
+    }
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .status-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       border: 1px solid var(--text-muted);
-      font-size: 0.6rem;
+      font-size: 0.65rem;
     }
 
-    .lesson-item.understood .status-badge {
+    .section-item.understood .status-badge {
       background-color: var(--success-green);
       border-color: var(--success-green);
       color: white;
     }
 
-    /* Studio Content Display Panel */
+    /* Content Viewport Container */
     .content-viewport {
       flex: 1;
       overflow-y: auto;
       background-color: var(--bg-darkest);
-      padding: 40px;
+      padding: 35px;
     }
 
     .lesson-hero-card {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 30px;
-      position: relative;
+      padding: 25px;
+      margin-bottom: 25px;
     }
 
     .lesson-badge {
@@ -323,30 +268,9 @@
       padding: 4px 10px;
       border-radius: 4px;
       display: inline-block;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .lesson-main-title {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-
-    .lesson-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 600px;
-      margin-bottom: 20px;
-    }
-
-    .action-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border-color);
-      padding-top: 20px;
-    }
-
-    /* Checkbox Styles */
     .completion-checkbox-label {
       display: flex;
       align-items: center;
@@ -355,11 +279,12 @@
       font-size: 0.9rem;
       color: var(--text-pink);
       user-select: none;
+      margin-top: 15px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 15px;
     }
 
-    .completion-checkbox-label input {
-      display: none;
-    }
+    .completion-checkbox-label input { display: none; }
 
     .custom-checkbox {
       width: 20px;
@@ -369,7 +294,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
     }
 
     .completion-checkbox-label input:checked + .custom-checkbox {
@@ -378,21 +302,27 @@
     }
 
     .completion-checkbox-label input:checked + .custom-checkbox::after {
-      content: "✓";
-      color: white;
-      font-size: 0.8rem;
-      font-weight: bold;
+      content: "✓"; color: white; font-size: 0.8rem; font-weight: bold;
     }
 
-    /* Core Linguistic Display Architecture */
+    /* Linguistic Data Formats */
+    .vocab-scroll-box {
+      max-height: 480px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      background: rgba(0,0,0,0.2);
+    }
+
     .linguistic-box {
       display: flex;
       flex-direction: column;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       padding: 12px;
-      background: rgba(0,0,0,0.15);
+      background: var(--bg-surface);
       border-radius: 6px;
-      border-left: 3px solid var(--pink-dark);
+      border-left: 4px solid var(--pink-dark);
     }
 
     .lang-row {
@@ -403,13 +333,13 @@
     }
 
     .char-display {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--text-main);
     }
 
     .jyutping-display {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--pink-primary);
       font-family: monospace;
       background-color: rgba(255,141,161,0.08);
@@ -429,7 +359,7 @@
       margin-top: 4px;
     }
 
-    /* Tab Layout Mechanics */
+    /* Tab Layout Elements */
     .tab-nav {
       display: flex;
       border-bottom: 2px solid var(--border-color);
@@ -438,275 +368,152 @@
     }
 
     .tab-btn {
-      background: none;
-      border: none;
+      background: none; border: none;
       color: var(--text-muted);
       padding: 12px 20px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
+      font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; position: relative;
     }
 
-    .tab-btn:hover {
-      color: var(--text-main);
-    }
-
-    .tab-btn.active {
-      color: var(--pink-primary);
-    }
+    .tab-btn.active { color: var(--pink-primary); }
 
     .tab-btn.active::after {
-      content: "";
-      position: absolute;
-      bottom: -2px; left: 0; right: 0;
-      height: 2px;
-      background-color: var(--pink-primary);
+      content: ""; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 2px; background-color: var(--pink-primary);
     }
 
-    .tab-panel {
-      display: none;
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Dialogues Array View Wrapper */
+    .dialogue-wrapper-block {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-top: 15px;
     }
 
-    .tab-panel.active {
-      display: block;
+    .dialogue-title-header {
+      font-size: 1rem;
+      color: var(--pink-light);
+      margin-bottom: -15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .grid-two-col {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    /* Dialogue Card Formats */
     .dialogue-container {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      background-color: rgba(0,0,0,0.1);
+      gap: 15px;
+      background-color: rgba(0,0,0,0.15);
       padding: 20px;
       border-radius: 8px;
+      border: 1px solid var(--border-color);
     }
 
-    .dialogue-turn {
-      display: flex;
-      gap: 15px;
-      max-width: 80%;
-    }
-
-    .dialogue-turn.speaker-A {
-      align-self: flex-start;
-    }
-
-    .dialogue-turn.speaker-B {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
+    .dialogue-turn { display: flex; gap: 15px; max-width: 85%; }
+    .dialogue-turn.speaker-A { align-self: flex-start; }
+    .dialogue-turn.speaker-B { align-self: flex-end; flex-direction: row-reverse; }
 
     .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       background-color: var(--pink-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 0.85rem;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 0.85rem; flex-shrink: 0;
     }
 
-    .speaker-B .avatar {
-      background-color: var(--bg-surface-hover);
-      border: 1px solid var(--pink-primary);
-    }
+    .speaker-B .avatar { background-color: var(--bg-darkest); border: 1px solid var(--pink-primary); }
 
     .bubble-content {
       background-color: var(--bg-surface);
-      padding: 15px;
+      padding: 12px 16px;
       border-radius: 12px;
       border: 1px solid var(--border-color);
     }
 
-    /* Practice Arena Subcomponents */
+    /* Practice Arena Elements */
     .arena-section {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 25px;
-      margin-bottom: 25px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
 
     .arena-section h3 {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-      color: var(--text-pink);
-      border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 8px;
+      font-size: 1rem; margin-bottom: 12px; color: var(--text-pink);
+      border-bottom: 1px dashed var(--border-color); padding-bottom: 6px;
     }
 
-    /* Flashcard Mechanics */
     .flashcard-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding: 20px 0;
+      display: flex; flex-direction: column; align-items: center; gap: 15px;
     }
 
-    .card-deck {
-      width: 100%;
-      max-width: 400px;
-      height: 220px;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-    }
-
-    .card-deck.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
+    .card-deck { width: 100%; max-width: 440px; height: 180px; perspective: 1000px; cursor: pointer; }
+    .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.4s; transform-style: preserve-3d; }
+    .card-deck.flipped .card-inner { transform: rotateY(180deg); }
 
     .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 12px;
-      border: 2px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      border-radius: 10px; border: 2px solid var(--border-color);
+      display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;
     }
 
-    .card-front {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-    }
+    .card-front { background-color: var(--bg-dark); color: var(--text-main); }
+    .card-back { background-color: var(--bg-surface-hover); transform: rotateY(180deg); border-color: var(--pink-dark); }
 
-    .card-back {
-      background-color: var(--bg-surface-hover);
-      color: var(--text-main);
-      transform: rotateY(180deg);
-      border-color: var(--pink-dark);
-    }
-
-    .input-group {
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
+    .input-group { width: 100%; max-width: 440px; display: flex; gap: 10px; }
 
     .text-input {
-      flex: 1;
-      background-color: var(--bg-darkest);
-      border: 2px solid var(--border-color);
-      border-radius: 6px;
-      padding: 10px 15px;
-      color: white;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
+      flex: 1; background-color: var(--bg-darkest); border: 2px solid var(--border-color);
+      border-radius: 6px; padding: 10px 15px; color: white; font-size: 0.95rem; outline: none;
     }
-
-    .text-input:focus {
-      border-color: var(--pink-primary);
-    }
+    .text-input:focus { border-color: var(--pink-primary); }
 
     .action-btn {
-      background-color: var(--pink-dark);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.2s;
+      background-color: var(--pink-dark); color: white; border: none;
+      border-radius: 6px; padding: 10px 18px; font-weight: 600; cursor: pointer;
     }
+    .action-btn:hover { background-color: var(--pink-primary); }
 
-    .action-btn:hover {
-      background-color: var(--pink-primary);
-    }
+    .feedback-box { margin-top: 8px; font-size: 0.9rem; font-weight: 600; min-height: 20px; }
 
-    .feedback-box {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      min-height: 20px;
-    }
-
-    /* Multiple Choice Formats */
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
+    .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
 
     .option-button {
-      width: 100%;
-      background-color: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 14px 20px;
-      color: var(--text-main);
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.95rem;
+      width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border-color);
+      border-radius: 6px; padding: 12px 18px; color: var(--text-main); text-align: left;
+      cursor: pointer; font-size: 0.95rem; transition: all 0.2s;
     }
+    .option-button:hover { background-color: var(--bg-surface-hover); border-color: var(--pink-primary); }
+    .option-button.correct { background-color: rgba(76, 175, 80, 0.2); border-color: var(--success-green); }
+    .option-button.wrong { background-color: rgba(204, 90, 112, 0.2); border-color: var(--pink-dark); }
 
-    .option-button:hover {
-      background-color: var(--bg-surface-hover);
-      border-color: var(--pink-primary);
+    .arena-cycle-row {
+      width: 100%; max-width: 440px; display: flex; justify-content: flex-end; margin-top: -5px; margin-bottom: 10px;
     }
-
-    .option-button.correct {
-      background-color: rgba(76, 175, 80, 0.2);
-      border-color: var(--success-green);
-      color: white;
-    }
-
-    .option-button.wrong {
-      background-color: rgba(204, 90, 112, 0.2);
-      border-color: var(--pink-dark);
-    }
-
-    /* Utility Helpers */
-    .hidden {
-      display: none !important;
+    .cycle-btn {
+      background: none; border: none; color: var(--pink-primary); cursor: pointer; font-size: 0.8rem; text-decoration: underline;
     }
 
     @media (max-width: 900px) {
       body { overflow: auto; height: auto; }
-      .app-workspace { flex-direction: column; height: auto; overflow: visible; }
-      .sidebar-roadmap { width: 100%; height: auto; max-height: 400px; }
-      .content-viewport { padding: 20px; }
+      .app-workspace { flex-direction: column; }
+      .sidebar-roadmap { width: 100%; max-height: 300px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Global App Header -->
   <header>
     <div class="brand-section">
-      <h1>粵語精英 <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">Cantonese Pro Suite</span></h1>
-      <p>Interactive Masterclass Curriculum</p>
+      <h1>粵語精英 <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">Cantonese Pro Master Suite</span></h1>
+      <p>Fluency Curriculum Engineering Terminal</p>
     </div>
     
     <div class="global-controls">
+      <!-- Input Mode Switch Panel Pin -->
       <div class="toggle-container">
         <span class="toggle-label" id="lbl-jyutping">Jyutping Input</span>
         <label class="switch">
@@ -716,8 +523,9 @@
         <span class="toggle-label" id="lbl-character">Character Mode</span>
       </div>
 
+      <!-- Curriculum Completion Summary -->
       <div class="overall-progress-container">
-        <span class="progress-label">Total Curriculum Progress: <span id="overall-txt">0%</span></span>
+        <span class="progress-label">Global Track Progress: <span id="overall-txt">0%</span></span>
         <div class="progress-bar-wrapper">
           <div class="progress-fill" id="overall-bar"></div>
         </div>
@@ -725,38 +533,51 @@
     </div>
   </header>
 
+  <!-- Workspace Split Grid Mapping Layout -->
   <div class="app-workspace">
     
+    <!-- Left Navigation Map Navigation Tree -->
     <div class="sidebar-roadmap" id="curriculum-sidebar">
-      <div class="roadmap-header">Curriculum Directory</div>
-      </div>
+      <div class="roadmap-header">Progress Roadmap Matrix</div>
+      <!-- Injected by Engine at Boot -->
+    </div>
 
+    <!-- Core Interactive Content Stage Window Panel -->
     <div class="content-viewport">
       
+      <!-- Active Hero Track Context Deck -->
       <div id="lesson-hero-target"></div>
 
+      <!-- Content Segmentation Navigation Array Links -->
       <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchTab('study')">Study Material</button>
+        <button class="tab-btn active" onclick="switchTab('study')">Study Material (Lexicon & Dialogue)</button>
         <button class="tab-btn" onclick="switchTab('practice')">Interactive Practice Arena</button>
       </div>
 
+      <!-- Content Views Display Windows Panels -->
       <div class="tab-panel active" id="panel-study">
-        <div style="display:flex; flex-direction:column; gap:30px;">
+        <div style="display:flex; flex-direction:column; gap:25px;">
           <section>
-            <h3 style="color:var(--pink-primary); margin-bottom:15px; font-size:1.1rem; text-transform:uppercase;">Vocabulary Bank</h3>
-            <div class="grid-two-col" id="vocab-target"></div>
+            <h3 id="vocab-header-count" style="color:var(--pink-primary); margin-bottom:12px; font-size:1.1rem; text-transform:uppercase;">Vocabulary Database</h3>
+            <div class="vocab-scroll-box" id="vocab-target"></div>
           </section>
 
-          <section>
-            <h3 style="color:var(--pink-primary); margin-bottom:15px; font-size:1.1rem; text-transform:uppercase;">Conversational Dialogues</h3>
+          <section style="margin-top:5px;">
+            <h3 style="color:var(--pink-primary); margin-bottom:12px; font-size:1.1rem; text-transform:uppercase;">Day-to-Day Practical Conversations</h3>
             <div id="dialogue-target"></div>
           </section>
         </div>
       </div>
 
+      <!-- Practice Deck Stage Section Window Frame -->
       <div class="tab-panel" id="panel-practice">
+        
+        <!-- Flashcard Drill Block Section Array -->
         <div class="arena-section">
-          <h3>Drill 1: Recall & Identification Flashcard</h3>
+          <h3>Drill 1: Fluid Real-time Identification Deck</h3>
+          <div class="arena-cycle-row">
+            <button class="cycle-btn" onclick="cycleDrillItem('fc')">➡️ Load Random Entry from Database</button>
+          </div>
           <div class="flashcard-wrapper">
             <div class="card-deck" id="flashcard" onclick="flipCard()">
               <div class="card-inner">
@@ -764,7 +585,6 @@
                 <div class="card-face card-back" id="card-back-content">--</div>
               </div>
             </div>
-            <p style="font-size:0.8rem; color:var(--text-muted);">Click card surface area to flip over.</p>
             <div class="input-group">
               <input type="text" id="fc-input" class="text-input" placeholder="Verify recall match...">
               <button class="action-btn" onclick="checkFlashcard()">Submit</button>
@@ -773,20 +593,28 @@
           </div>
         </div>
 
+        <!-- Cloze Context Test Block Assembly Section -->
         <div class="arena-section">
-          <h3>Drill 2: Situational Context Cloze</h3>
-          <p id="cloze-prompt" style="font-size:1.1rem; margin-bottom:10px; line-height:1.6;"></p>
-          <p id="cloze-trans" style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;"></p>
+          <h3>Drill 2: Day-to-Day Dialogue Cloze Task</h3>
+          <div class="arena-cycle-row">
+            <button class="cycle-btn" onclick="cycleDrillItem('cloze')">➡️ Load Random Structural Context</button>
+          </div>
+          <p id="cloze-prompt" style="font-size:1.1rem; margin-bottom:8px; line-height:1.6;"></p>
+          <p id="cloze-trans" style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;"></p>
           <div class="input-group">
-            <input type="text" id="cloze-input" class="text-input" placeholder="Type target value...">
+            <input type="text" id="cloze-input" class="text-input" placeholder="Type structural match target...">
             <button class="action-btn" onclick="checkCloze()">Verify</button>
           </div>
           <div class="feedback-box" id="cloze-feedback"></div>
         </div>
 
+        <!-- Multiple Choice Audio Interpretation Arena Array -->
         <div class="arena-section">
-          <h3>Drill 3: Core Audio Interpretation Multiple Choice</h3>
-          <p id="mc-prompt" style="font-size:1.1rem; margin-bottom:15px;"></p>
+          <h3>Drill 3: Functional Comprehension Target Select</h3>
+          <div class="arena-cycle-row">
+            <button class="cycle-btn" onclick="cycleDrillItem('mc')">➡️ Load Next Variation Matrix</button>
+          </div>
+          <p id="mc-prompt" style="font-size:1.1rem; margin-bottom:12px;"></p>
           <div class="options-grid" id="mc-options-box"></div>
           <div class="feedback-box" id="mc-feedback"></div>
         </div>
@@ -796,664 +624,702 @@
     </div>
   </div>
 
-  <script>
-    // Universal App State Engine Variables
-    let currentModuleIdx = 0;
-    let currentLessonIdx = 0;
-    let characterModeActive = false;
-    let userProgressProfile = { understoodLessons: [] };
+  <!-- Hidden global audio engine -->
+  <audio id="audio-engine" loop></audio>
 
-    // Core High-Fidelity Multi-Tier Curriculum Dataset
+  <!-- Massive Data Layer script execution node -->
+  <script>
+    let activeSectionIdx = 0;
+    let characterModeActive = false;
+    let userProgressProfile = { understoodSections: [] };
+
+    // Huge 6-Tier Curriculum Database Payload Matrix Engine
     const databaseCurriculum = [
       {
         id: "mod_beginner",
-        title: "1. Beginner Core Foundations",
-        description: "Essential introductory elements, linguistic overview, structural tone profiles, and introductory counting protocols.",
-        lessons: [
+        title: "1. Beginner Tones & Greetings",
+        description: "Essential introductory structures, tone profiles, core greeting syntax mechanics, and numerical array configurations.",
+        vocab: [
+          { char: "你好", jp: "nei5 hou2", phonetic: "Nay Hooh", trans: "Hello" },
+          { char: "早晨", jp: "zou2 san4", phonetic: "Joes Sun", trans: "Good morning" },
+          { char: "再見", jp: "zoi3 gin3", phonetic: "Joy Geen", trans: "Goodbye" },
+          { char: "唔該", jp: "m4 goi1", phonetic: "Mm Goy", trans: "Thank you (for service) / Please" },
+          { char: "多謝", jp: "do1 ze6", phonetic: "Daw Jeh", trans: "Thank you (for gifts/hospitality)" },
+          { char: "早唞", jp: "zou2 tau2", phonetic: "Joe Tau", trans: "Good night" },
+          { char: "食咗飯未", jp: "sik6 zo2 faan6 mei6", phonetic: "Sack Jaw Faan May", trans: "Have you eaten yet?" },
+          { char: "唔好意思", jp: "m4 hou2 ji3 si3", phonetic: "Mm Ho Yee See", trans: "Excuse me / Sorry" },
+          { char: "對唔住", jp: "deoi3 m4 zyu6", phonetic: "Deui Mm Jyu", trans: "I am sorry (formal/deep)" },
+          { char: "冇問題", jp: "mou5 man6 tai4", phonetic: "Mou Mun Tai", trans: "No problem" },
+          { char: "我", jp: "ngo5", phonetic: "Ngo", trans: "I / Me" },
+          { char: "你", jp: "nei5", phonetic: "Nay", trans: "You" },
+          { char: "佢", jp: "keoi5", phonetic: "Heui", trans: "He / She / It" },
+          { char: "我哋", jp: "ngo5 dei6", phonetic: "Ngo Day", trans: "We / Us" },
+          { char: "你哋", jp: "nei5 dei6", phonetic: "Nay Day", trans: "You (plural)" },
+          { char: "佢哋", jp: "keoi5 dei6", phonetic: "Heui Day", trans: "They / Them" },
+          { char: "一", jp: "jat1", phonetic: "Yut", trans: "One" },
+          { char: "二", jp: "ji6", phonetic: "Yee", trans: "Two" },
+          { char: "三", jp: "saam1", phonetic: "Saahm", trans: "Three" },
+          { char: "四", jp: "sei3", phonetic: "Say", trans: "Four" },
+          { char: "五", jp: "ng5", phonetic: "Mm", trans: "Five" },
+          { char: "六", jp: "luk6", phonetic: "Look", trans: "Six" },
+          { char: "七", jp: "cat1", phonetic: "Chut", trans: "Seven" },
+          { char: "八", jp: "baat3", phonetic: "Baat", trans: "Eight" },
+          { char: "九", jp: "gau2", phonetic: "Gau", trans: "Nine" },
+          { char: "十", jp: "sap6", phonetic: "Sup", trans: "Ten" },
+          { char: "零", jp: "ling4", phonetic: "Leeng", trans: "Zero" },
+          { char: "係", jp: "hai6", phonetic: "Hai", trans: "To be (yes)" },
+          { char: "唔係", jp: "m4 hai6", phonetic: "Mm Hai", trans: "Not to be (no)" },
+          { char: "乜嘢", jp: "mat1 je5", phonetic: "Mut Yeh", trans: "What" }
+        ],
+        dialogues: [
           {
-            title: "L1: Structural Greetings & Salutations",
-            description: "Learn to build interpersonal relations utilizing core native greetings across formal/informal spectra.",
-            vocab: [
-              { char: "你好", jp: "nei5 hou2", phonetic: "Nay Hooh", trans: "Hello (lit. You good)" },
-              { char: "早晨", jp: "zou2 san4", phonetic: "Joes Sun", trans: "Good Morning" },
-              { char: "再見", jp: "zoi3 gin3", phonetic: "Joy Geen", trans: "Goodbye" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "陳生", char: "你好！早晨。", jp: "nei5 hou2! zou2 san4.", trans: "Hello! Good morning." },
-              { speaker: "B", name: "張小姐", char: "早晨！你好嗎？", jp: "zou2 san4! nei5 hou2 maa1?", trans: "Good morning! How are you?" }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "你好", frontJp: "nei5 hou2", correctJp: "nei5 hou2", correctChar: "你好" },
-              cloze: { textChar: "[你好]，早晨！", textJp: "[nei5 hou2], zou2 san4!", trans: "Hello, good morning!", targetJp: "nei5 hou2", targetChar: "你好" },
-              mc: { prompt: "Identify the correct greeting for early mornings (Good Morning):", options: [ {text: "早晨 (zou2 san4)", correct: true}, {text: "再見 (zoi3 gin3)", correct: false}, {text: "你好 (nei5 hou2)", correct: false} ] }
-            }
+            title: "Dialogue A: Early Morning Encounter",
+            turns: [
+              { speaker: "A", name: "張生 (Mr. Cheung)", char: "早晨！唔該借借。", jp: "zou2 san4! m4 goi1 ze3 ze3.", trans: "Good morning! Excuse me, please let me through." },
+              { speaker: "B", name: "陳小姐 (Miss Chan)", char: "早晨！呀，唔好意思。", jp: "zou2 san4! aa1, m4 hou2 ji3 si3.", trans: "Good morning! Ah, my apologies." },
+              { speaker: "A", name: "張生 (Mr. Cheung)", char: "冇問題，再見！", jp: "mou5 man6 tai4, zoi3 gin3!", trans: "No problem, goodbye!" }
+            ]
           },
           {
-            title: "L2: Numbers & Numerical Systems",
-            description: "Master counting operations essential for monetary configurations, sizing scales, and dates.",
-            vocab: [
-              { char: "一", jp: "jat1", phonetic: "Yut", trans: "One" },
-              { char: "二", jp: "ji6", phonetic: "Yee", trans: "Two" },
-              { char: "三", jp: "saam1", phonetic: "Saahm", trans: "Three" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Client", char: "一、二、三，夠唔夠？", jp: "jat1, ji6, saam1, gau3 m4 gau3?", trans: "One, two, three, is that enough?" },
-              { speaker: "B", name: "Clerk", char: "唔夠，我要三個。", jp: "m4 gau3, ngo5 jiu3 saam1 go3.", trans: "Not enough, I require three items." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "三", frontJp: "saam1", correctJp: "saam1", correctChar: "三" },
-              cloze: { textChar: "我有[三]個蘋果。", textJp: "ngo5 jau5 [saam1] go3 ping4 gwo2.", trans: "I have three apples.", targetJp: "saam1", targetChar: "三" },
-              mc: { prompt: "Select the accurate representation for numerical 'Two':", options: [ {text: "一 (jat1)", correct: false}, {text: "二 (ji6)", correct: true}, {text: "三 (saam1)", correct: false} ] }
-            }
+            title: "Dialogue B: Basic Identity Verification Check",
+            turns: [
+              { speaker: "A", name: "Clerk", char: "請問你係咪張生？", jp: "cing2 man6 nei5 hai6 mai6 zoeng1 saang1?", trans: "May I ask, are you Mr. Cheung?" },
+              { speaker: "B", name: "Guest", char: "係，我係。佢哋唔係。", jp: "hai6, ngo5 hai6. keoi5 dei6 m4 hai6.", trans: "Yes, I am. They are not." }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "唔該，[你好]嗎？", textJp: "m4 goi1, [nei5 hou2] maa1?", trans: "Excuse me, how are you?", targetJp: "nei5 hou2", targetChar: "你好" },
+          { textChar: "今日我要買[三]個蘋果。", textJp: "gam1 jat1 ngo5 jiu3 maai5 [saam1] go3 ping4 gwo2.", trans: "Today I need to buy three apples.", targetJp: "saam1", targetChar: "三" }
+        ],
+        practice_mcs: [
+          { prompt: "Which item corresponds to the deep apology 'I am sorry'?", options: [ {text: "對唔住 (deoi3 m4 zyu6)", correct: true}, {text: "多謝 (do1 ze6)", correct: false}, {text: "早唞 (zou2 tau2)", correct: false} ] },
+          { prompt: "Identify the pronoun target for 'They / Them':", options: [ {text: "我哋 (ngo5 dei6)", correct: false}, {text: "你哋 (nei5 dei6)", correct: false}, {text: "佢哋 (keoi5 dei6)", correct: true} ] }
         ]
       },
       {
         id: "mod_elementary",
-        title: "2. Elementary Operational Life",
-        description: "Navigation vectors surrounding foundational public needs: item purchases, dietary intake environments, and basic tracking.",
-        lessons: [
+        title: "2. Elementary Daily Life & Food",
+        description: "Ordering protocols in local tea restaurants (Cha Chaan Teng), basic currency exchange tracking, and market retail interfaces.",
+        vocab: [
+          { char: "咖啡", jp: "gaa3 fe1", phonetic: "Gah Feh", trans: "Coffee" },
+          { char: "凍檸茶", jp: "dung3 ling4 caa4", phonetic: "Dung Leeng Chah", trans: "Iced Lemon Tea" },
+          { char: "奶茶", jp: "naai5 caa4", phonetic: "Naai Chah", trans: "Milk Tea" },
+          { char: "菠蘿包", jp: "bo1 lo4 baau1", phonetic: "Boh Loh Baau", trans: "Pineapple Bun" },
+          { char: "蛋撻", jp: "daan6 taat1", phonetic: "Daan Taat", trans: "Egg Tart" },
+          { char: "炒飯", jp: "caau2 faan6", phonetic: "Chaau Faan", trans: "Fried Rice" },
+          { char: "買單", jp: "maai5 daan1", phonetic: "Maai Daan", trans: "Check please / bill" },
+          { char: "幾多錢", jp: "gei2 do1 cin2", phonetic: "Gay Doe Cheen", trans: "How much money?" },
+          { char: "一百蚊", jp: "jat1 baak3 man1", phonetic: "Yut Baat Mun", trans: "100 Hong Kong Dollars" },
+          { char: "平啲", jp: "peng4 di1", phonetic: "Pehng Dee", trans: "Cheaper" },
+          { char: "貴", jp: "gwai3", phonetic: "Gwai", trans: "Expensive" },
+          { char: "收銀", jp: "sau1 ngan2", phonetic: "Sau Ngun", trans: "Cashier terminal" },
+          { char: "信用卡", jp: "seon3 jung6 kaat1", phonetic: "Seon Jung Kaat", trans: "Credit Card" },
+          { char: "超級市場", jp: "ciu1 kap1 si5 coeng4", phonetic: "Chiu Cup See Choeng", trans: "Supermarket" },
+          { char: "買嘢", jp: "maai5 je5", phonetic: "Maai Yeh", trans: "To buy items / shopping" },
+          { char: "幾點", jp: "gei2 dim2", phonetic: "Gay Deem", trans: "What time?" },
+          { char: "點鐘", jp: "dim2 zung1", phonetic: "Deem Zong", trans: "O'clock" },
+          { char: "分鐘", jp: "fan1 zung1", phonetic: "Fun Zong", trans: "Minutes" },
+          { char: "今日", jp: "gam1 jat1", phonetic: "Gum Yut", trans: "Today" },
+          { char: "聽日", jp: "ting1 jat1", phonetic: "Teeng Yut", trans: "Tomorrow" },
+          { char: "尋日", jp: "cam4 jat1", phonetic: "Chum Yut", trans: "Yesterday" },
+          { char: "冰", jp: "bing1", phonetic: "Beeng", trans: "Ice" },
+          { char: "少甜", jp: "siu2 tim4", phonetic: "Siu Teem", trans: "Less sugar" },
+          { char: "打包", jp: "daat3 baau1", phonetic: "Daat Baau", trans: "To take out / doggy bag" },
+          { char: "好食", jp: "hou2 sik6", phonetic: "Ho Sack", trans: "Delicious" },
+          { char: "熱狗", jp: "jit6 gau2", phonetic: "Yeet Gau", trans: "Hot dog" },
+          { char: "水", jp: "seoi2", phonetic: "Suuy", trans: "Water" },
+          { char: "要", jp: "jiu3", phonetic: "Yiu", trans: "To want / need" },
+          { char: "鍾意", jp: "zung1 ji3", phonetic: "Zong Yee", trans: "To like" },
+          { char: "袋", jp: "doi2", phonetic: "Doy", trans: "Bag" }
+        ],
+        dialogues: [
           {
-            title: "L1: Dining Protocols & Ordering food",
-            description: "How to effectively solicit products, choose tables, and interface inside Cantonese dining halls.",
-            vocab: [
-              { char: "飲茶", jp: "jam2 caa4", phonetic: "Yum Chah", trans: "To drink tea / eat Dim Sum" },
-              { char: "咖啡", jp: "gaa3 fe1", phonetic: "Gah Feh", trans: "Coffee" },
-              { char: "唔該", jp: "m4 goi1", phonetic: "Mm Goy", trans: "Thank you (for services) / Please" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Guest", char: "唔該，我要一杯咖啡。", jp: "m4 goi1, ngo5 jiu3 jat1 bui1 gaa3 fe1.", trans: "Excuse me, I want a cup of coffee." },
-              { speaker: "B", name: "Waiter", char: "好，請等一等。", jp: "hou2, cing2 dang2 jat1 dang2.", trans: "Understood, please wait a moment." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "咖啡", frontJp: "gaa3 fe1", correctJp: "gaa3 fe1", correctChar: "咖啡" },
-              cloze: { textChar: "唔該，我要一杯[咖啡]。", textJp: "m4 goi1, ngo5 jiu3 jat1 bui1 [gaa3 fe1].", trans: "Please, I want a cup of coffee.", targetJp: "gaa3 fe1", targetChar: "咖啡" },
-              mc: { prompt: "Which item means 'to drink tea / eat dim sum'?", options: [ {text: "咖啡 (gaa3 fe1)", correct: false}, {text: "飲茶 (jam2 caa4)", correct: true}, {text: "唔該 (m4 goi1)", correct: false} ] }
-            }
+            title: "Dialogue A: Fast Food Restaurant Orders",
+            turns: [
+              { speaker: "A", name: "Waiter", char: "歡迎，你想食乜嘢？", jp: "fun1 jing4, nei5 soeng2 sik6 mat1 je5?", trans: "Welcome, what would you like to eat?" },
+              { speaker: "B", name: "Diner", char: "我要一個菠蘿包同一杯凍檸茶，少甜唔該。", jp: "ngo5 jiu3 jat1 go3 bo1 lo4 baau1 tung4 jat1 bui1 dung3 ling4 caa4, siu2 tim4 m4 goi1.", trans: "I want a pineapple bun and an iced lemon tea, less sugar please." },
+              { speaker: "A", name: "Waiter", char: "好，喺度食定打包？", jp: "hou2, hai2 dou6 sik6 ding6 daat3 baau1?", trans: "Understood, dine in or take out?" }
+            ]
           },
           {
-            title: "L2: Commercial Retail Basics",
-            description: "Core phrasing strategies to audit pricing indices and acquire standard market inventory assets.",
-            vocab: [
-              { char: "幾多錢", jp: "gei2 do1 cin2", phonetic: "Gay Doe Cheen", trans: "How much money?" },
-              { char: "平啲", jp: "peng4 di1", phonetic: "Pehng Dee", trans: "Cheaper / discount" },
-              { char: "買", jp: "maai5", phonetic: "Maai", trans: "To buy" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Buyer", char: "唔該，呢個幾多錢？", jp: "m4 goi1, ne1 go3 gei2 do1 cin2?", trans: "Excuse me, how much is this?" },
-              { speaker: "B", name: "Seller", char: "一百蚊，好平喇。", jp: "jat1 baak3 man1, hou2 peng4 laa3.", trans: "One hundred dollars, it is very cheap." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "幾多錢", frontJp: "gei2 do1 cin2", correctJp: "gei2 do1 cin2", correctChar: "幾多錢" },
-              cloze: { textChar: "呢個[幾多錢]？", textJp: "ne1 go3 [gei2 do1 cin2]?", trans: "How much is this?", targetJp: "gei2 do1 cin2", targetChar: "幾多錢" },
-              mc: { prompt: "What phrase represents asking for price or valuation cost?", options: [ {text: "平啲 (peng4 di1)", correct: false}, {text: "買 (maai5)", correct: false}, {text: "幾多錢 (gei2 do1 cin2)", correct: true} ] }
-            }
+            title: "Dialogue B: Settling the Check Transaction",
+            turns: [
+              { speaker: "A", name: "Customer", char: "唔該買單，幾多錢？", jp: "m4 goi1 maai5 daan1, gei2 do1 cin2?", trans: "Excuse me bill please, how much is it?" },
+              { speaker: "B", name: "Cashier", char: "七十八蚊。請問收唔收信用卡？", jp: "cat1 sap6 baat3 man1. cing2 man6 sau1 m4 sau1 seon3 jung6 kaat1?", trans: "78 dollars. Do you accept credit cards?" }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "呢個蛋撻真係好[好食]！", textJp: "ne1 go3 daan6 taat1 zan1 hai6 hou2 [hou2 sik6]!", trans: "This egg tart is truly delicious!", targetJp: "hou2 sik6", targetChar: "好食" },
+          { textChar: "唔該，我要一杯[咖啡]。", textJp: "m4 goi1, ngo5 jiu3 jat1 bui1 [gaa3 fe1].", trans: "Please, I want a cup of coffee.", targetJp: "gaa3 fe1", targetChar: "咖啡" }
+        ],
+        practice_mcs: [
+          { prompt: "What item is the famous 'Iced Lemon Tea'?", options: [ {text: "凍檸茶 (dung3 ling4 caa4)", correct: true}, {text: "奶茶 (naai5 caa4)", correct: false}, {text: "水 (seoi2)", correct: false} ] },
+          { prompt: "How do you say 'How much money?'", options: [ {text: "平啲 (peng4 di1)", correct: false}, {text: "幾多錢 (gei2 do1 cin2)", correct: true}, {text: "買單 (maai5 daan1)", correct: false} ] }
         ]
       },
       {
         id: "mod_intermediate",
-        title: "3. Intermediate Urban Navigation",
-        description: "Executing complex route patterns across mass rapid transit systems, interpreting elements, and community socializing.",
-        lessons: [
+        title: "3. Intermediate Urban Flow",
+        description: "Executing complex route changes across the MTR train layout networks, reading maps, social meets, and interpretation of weather updates.",
+        vocab: [
+          { char: "地鐵", jp: "dei6 tit3", phonetic: "Day Teet", trans: "MTR Subway Train" },
+          { char: "巴士", jp: "baa1 si2", phonetic: "Bah See", trans: "Bus" },
+          { char: "點去", jp: "dim2 heoi3", phonetic: "Deem Huuy", trans: "How to go to...?" },
+          { char: "地鐵站", jp: "dei6 tit3 zaam6", phonetic: "Day Teet Zaam", trans: "MTR Subway Station" },
+          { char: "喺邊度", jp: "hai2 bin1 dou6", phonetic: "Hai Bin Doe", trans: "Where is...?" },
+          { char: "轉車", jp: "zyun2 ce1", phonetic: "Zun Cheh", trans: "To transfer lines/vehicles" },
+          { char: "的士", jp: "dik1 si2", phonetic: "Dick See", trans: "Taxi" },
+          { char: "小巴", jp: "siu2 baa1", phonetic: "Siu Bah", trans: "Minibus" },
+          { char: "直行", jp: "zik6 hang4", phonetic: "Zick Huhng", trans: "Go straight ahead" },
+          { char: "轉左", jp: "zyun2 zo2", phonetic: "Zun Zaw", trans: "Turn left" },
+          { char: "轉右", jp: "zyun2 jau6", phonetic: "Zun Yau", trans: "Turn right" },
+          { char: "馬路", jp: "maa5 lou6", phonetic: "Mah Lou", trans: "Main Road" },
+          { char: "好熱", jp: "hou2 jit6", phonetic: "Ho Yeet", trans: "Very Hot" },
+          { char: "落雨", jp: "lok6 jyu5", phonetic: "Lock Yuu", trans: "Raining" },
+          { char: "打風", jp: "daa2 fung1", phonetic: "Daa Fung", trans: "Typhoon striking" },
+          { char: "好凍", jp: "hou2 dung3", phonetic: "Ho Dung", trans: "Very Cold" },
+          { char: "商場", jp: "soeng1 coeng4", phonetic: "Soeng Choeng", trans: "Shopping Mall" },
+          { char: "盆友", jp: "pang4 jau5", phonetic: "Pung Yau", trans: "Friend" },
+          { char: "去街", jp: "heoi3 gaai1", phonetic: "Huuy Gaai", trans: "Go out on the town" },
+          { char: "見面", jp: "gin3 min6", phonetic: "Geen Meen", trans: "To meet up face-to-face" },
+          { char: "遠", jp: "jyun5", phonetic: "Yuun", trans: "Far Away" },
+          { char: "近", jp: "gan6", phonetic: "Gun", trans: "Close nearby" },
+          { char: "八達通", jp: "baat3 daat6 tung1", phonetic: "Baat Daat Tong", trans: "Octopus Contactless Card" },
+          { char: "車費", jp: "ce1 fai3", phonetic: "Cheh Fai", trans: "Transit fare cost" },
+          { char: "天橋", jp: "tin1 kiu4", phonetic: "Teen Kiu", trans: "Pedestrian Overpass Footbridge" },
+          { char: "出口", jp: "ceot1 hau2", phonetic: "Chut Hau", trans: "Exit" },
+          { char: "入口", jp: "jap6 hau2", phonetic: "Yup Hau", trans: "Entrance" },
+          { char: "地圖", jp: "dei6 tou4", phonetic: "Day Tooh", trans: "Map" },
+          { char: "等緊", jp: "dang2 gan2", phonetic: "Dang Gun", trans: "Currently waiting" },
+          { char: "到步", jp: "dou3 bou6", phonetic: "Doe Booh", trans: "Arrived at destination" }
+        ],
+        dialogues: [
           {
-            title: "L1: Commuter Transit Systems & MTR",
-            description: "Executing precise navigational transitions within rapid subway nodes and public terminal hubs.",
-            vocab: [
-              { char: "地鐵", jp: "dei6 tit3", phonetic: "Day Teet", trans: "MTR / Subway Train" },
-              { char: "巴士", jp: "baa1 si2", phonetic: "Bah See", trans: "Bus" },
-              { char: "點去", jp: "dim2 heoi3", phonetic: "Deem Huuy", trans: "How to go to...?" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Tourist", char: "唔該，地鐵站點去？", jp: "m4 goi1, dei6 tit3 zaam6 dim2 heoi3?", trans: "Excuse me, how do I get to the MTR station?" },
-              { speaker: "B", name: "Local", char: "向前走，就係喇。", jp: "hoeng3 cin4 zau2, zau6 hai6 laa3.", trans: "Walk straight ahead, and there it is." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "地鐵", frontJp: "dei6 tit3", correctJp: "dei6 tit3", correctChar: "地鐵" },
-              cloze: { textChar: "請問[地鐵]站喺邊度？", textJp: "cing2 man6 [dei6 tit3] zaam6 hai2 bin1 dou6?", trans: "May I ask where the MTR station is?", targetJp: "dei6 tit3", targetChar: "地鐵" },
-              mc: { prompt: "Identify the expression meaning 'How do I go to...?'", options: [ {text: "點去 (dim2 heoi3)", correct: true}, {text: "巴士 (baa1 si2)", correct: false}, {text: "地鐵 (dei6 tit3)", correct: false} ] }
-            }
+            title: "Dialogue A: Seeking the Subway Station",
+            turns: [
+              { speaker: "A", name: "Lost Urbanite", char: "唔好意思，請問地鐵站喺邊度？", jp: "m4 hou2 ji3 si3, cing2 man6 dei6 tit3 zaam6 hai2 bin1 dou6?", trans: "Excuse me, may I ask where the MTR station is located?" },
+              { speaker: "B", name: "Passerby", char: "你由呢度直行，過咗馬路轉左就見到入口。", jp: "nei5 jau4 ne1 dou6 zik6 hang4, gwo2 zo2 maa5 lou6 zun2 zo2 zau6 gin3 dou3 jap6 hau2.", trans: "You go straight from here, cross the main road, turn left, and you will see the entrance." }
+            ]
           },
           {
-            title: "L2: Urban Weather & Socializing",
-            description: "Formulating casual interpersonal small-talk and planning meetups based on environmental updates.",
-            vocab: [
-              { char: "好熱", jp: "hou2 jit6", phonetic: "Hooh Yeet", trans: "Very Hot" },
-              { char: "落雨", jp: "lok6 jyu5", phonetic: "Lock Yuu", trans: "Raining" },
-              { char: "盆友", jp: "pang4 jau5", phonetic: "Pung Yau", trans: "Friend" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Alex", char: "今日好熱，去邊度玩？", jp: "gam1 jat1 hou2 jit6, heoi3 bin1 dou6 waan2?", trans: "Today is very hot, where are we going to hang out?" },
-              { speaker: "B", name: "Ben", char: "去商場，唔怕落雨。", jp: "heoi3 soeng1 coeng4, m4 paa3 lok6 jyu5.", trans: "Let's go to the mall, no need to fear the rain." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "落雨", frontJp: "lok6 jyu5", correctJp: "lok6 jyu5", correctChar: "落雨" },
-              cloze: { textChar: "出面好似要[落雨]喇。", textJp: "ceot1 min6 hou2 ci5 jiu3 [lok6 jyu5] laa3.", trans: "It looks like it is going to rain outside.", targetJp: "lok6 jyu5", targetChar: "落雨" },
-              mc: { prompt: "What is the translation of 'Very Hot'?", options: [ {text: "落雨 (lok6 jyu5)", correct: false}, {text: "好熱 (hou2 jit6)", correct: true}, {text: "盆友 (pang4 jau5)", correct: false} ] }
-            }
+            title: "Dialogue B: Socializing and Weather Syncs",
+            turns: [
+              { speaker: "A", name: "Friend A", char: "出面打風落雨，我哋去商場見面喇？", jp: "ceot1 min6 daa2 fung1 lok6 jyu5, ngo5 dei6 heoi3 soeng1 coeng4 gin3 min6 laa1?", trans: "It is a typhoon and raining outside, shall we meet up inside the shopping mall?" },
+              { speaker: "B", name: "Friend B", char: "好，我搭緊地鐵，喺出口等你。", jp: "hou2, ngo5 daap3 gan2 dei6 tit3, hai2 ceot1 hau2 dang2 nei5.", trans: "Great, I am riding the MTR right now, will wait for you at the exit." }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "去尖沙咀要喺旺角[轉車]嗎？", textJp: "heoi3 zim1 saa1 zeoi2 jiu3 hai2 wong6 gok3 [zyun2 ce1] maa1?", trans: "To go to Tsim Sha Tsui, do I need to transfer at Mong Kok?", targetJp: "zyun2 ce1", targetChar: "轉車" },
+          { textChar: "唔該的士司機，同我[轉右]。", textJp: "m4 goi1 dik1 si2 si1 gei1, tung4 ngo5 [zyun2 jau6].", trans: "Thank you taxi driver, turn right for me.", targetJp: "zyun2 jau6", targetChar: "轉右" }
+        ],
+        practice_mcs: [
+          { prompt: "Select the contactless payment system name used everywhere in HK:", options: [ {text: "八達通 (baat3 daat6 tung1)", correct: true}, {text: "的士 (dik1 si2)", correct: false}, {text: "地圖 (dei6 tou4)", correct: false} ] },
+          { prompt: "What is the translation for 'Raining'?", options: [ {text: "好凍 (hou2 dung3)", correct: false}, {text: "打風 (daa2 fung1)", correct: false}, {text: "落雨 (lok6 jyu5)", correct: true} ] }
         ]
       },
       {
         id: "mod_upper_intermediate",
-        title: "4. Upper-Intermediate Workplace",
-        description: "Corporate operational fluency patterns: hosting status sync updates, briefing dependencies, and corporate correspondence syntax.",
-        lessons: [
+        title: "4. Upper-Intermediate Office",
+        description: "Corporate office operational communication frameworks: hosting sync reviews, dispatching status reports, and email sign-off loops.",
+        vocab: [
+          { char: "開會", jp: "hoi1 mui6", phonetic: "Hoy Mui", trans: "To hold a meeting" },
+          { char: "報告", jp: "bou3 gou3", phonetic: "Booh Gooh", trans: "Report / Presentation document" },
+          { char: "進度", jp: "zeon3 dou6", phonetic: "Zon Doe", trans: "Schedule progress matrix" },
+          { char: "經理", jp: "ging1 lei5", phonetic: "Ging Lay", trans: "Corporate Manager" },
+          { char: "電郵", jp: "din6 jau4", phonetic: "Deen Yau", trans: "Email dispatch" },
+          { char: "請參閱", jp: "cing2 caam1 jyut6", phonetic: "Ching Chaam Yuut", trans: "Please refer to / find attached" },
+          { char: "回覆", jp: "wui4 fuk1", phonetic: "Wui Fook", trans: "To reply / issue response text" },
+          { char: "項目", jp: "hong6 muk6", phonetic: "Hong Mook", trans: "Commercial Project framework" },
+          { char: "同事", jp: "tung4 si6", phonetic: "Toong See", trans: "Workplace Colleague" },
+          { char: "客戶", jp: "haak3 wu6", phonetic: "Haak Wooh", trans: "Account Client / Target Buyer" },
+          { char: "放假", jp: "fong3 gaa3", phonetic: "Fong Gah", trans: "To take leave / annual vacation" },
+          { char: "加班", jp: "gaa1 baan1", phonetic: "Gah Baan", trans: "Work Overtime" },
+          { char: "文件", jp: "man4 gin2", phonetic: "Mun Geen", trans: "Official Document files" },
+          { char: "合約", jp: "hap6 joek3", phonetic: "Hup Joek", trans: "Binding Corporate Contract" },
+          { char: "簽名", jp: "cim1 meng2", phonetic: "Cheem Mehng", trans: "To apply signature authentication" },
+          { char: "負責", jp: "fu6 zak6", phonetic: "Fooh Zark", trans: "To be responsible in charge of" },
+          { char: "遲到", jp: "ci4 dou3", phonetic: "Chee Doe", trans: "Arrive late" },
+          { char: "準時", jp: "zeon2 si4", phonetic: "Zon See", trans: "Punctual right on time" },
+          { char: "網頁", jp: "mong5 jip6", phonetic: "Mong Yeep", trans: "Company Website webpage" },
+          { char: "伺服器", jp: "ci6 fuk6 hei3", phonetic: "Cee Fook Hei", trans: "Network Datacenter Server" },
+          { char: "網絡", jp: "mong5 lok6", phonetic: "Mong Lock", trans: "IT Network infrastructure" },
+          { char: "更新", jp: "gang1 san1", phonetic: "Gung Sun", trans: "To deploy system updates" },
+          { char: "問題", jp: "man6 tai4", phonetic: "Mun Tai", trans: "Issue / Problem ticket" },
+          { char: "解決", jp: "gaai2 kyut3", phonetic: "Gaai Kuut", trans: "To resolve anomalies / fix" },
+          { char: "成本", jp: "sing4 boon2", phonetic: "Sing Boohn", trans: "Financial overhead cost" },
+          { char: "預算", jp: "ju6 syun3", phonetic: "Yuu Suun", trans: "Project Fiscal Budget" },
+          { char: "發票", jp: "faat1 piu3", phonetic: "Faat Piu", trans: "Accounting Invoice tracking" },
+          { char: "出糧", jp: "ceot1 loeng4", phonetic: "Chut Loeng", trans: "Disburse payroll salary" },
+          { char: "升職", jp: "sing1 zik1", phonetic: "Sing Zick", trans: "Receive career promotion" },
+          { char: "辭職", jp: "ci4 zik1", phonetic: "Chee Zick", trans: "Tender formal resignation" }
+        ],
+        dialogues: [
           {
-            title: "L1: Meeting Coordination Architecture",
-            description: "Command and report functional project tracks accurately inside corporate operational review boards.",
-            vocab: [
-              { char: "開會", jp: "hoi1 mui6", phonetic: "Hoy Mui", trans: "To hold a meeting" },
-              { char: "報告", jp: "bou3 gou3", phonetic: "Booh Gooh", trans: "Report / Presentation" },
-              { char: "進度", jp: "zeon3 dou6", phonetic: "Zon Doe", trans: "Schedule / Progress tracking" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Manager", char: "我哋聽日要開會討論進度。", jp: "ngo5 dei6 ting1 jat1 jiu3 hoi1 mui6 tou2 leon6 zeon3 dou6.", trans: "We need to hold a meeting tomorrow to discuss progress." },
-              { speaker: "B", name: "Lead", char: "好，我準備好份報告喇。", jp: "hou2, ngo5 zeon2 bei6 hou2 fan6 bou3 gou3 laa3.", trans: "Understood, I have finalized the data report." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "開會", frontJp: "hoi1 mui6", correctJp: "hoi1 mui6", correctChar: "開會" },
-              cloze: { textChar: "我哋而家入會議室[開會]。", textJp: "ngo5 dei6 ji4 gaa1 jap6 hui1 ji5 sat1 [hoi1 mui6].", trans: "We are entering the conference room now to hold a meeting.", targetJp: "hoi1 mui6", targetChar: "開會" },
-              mc: { prompt: "Which token translates to a corporate performance 'Report'?", options: [ {text: "進度 (zeon3 dou6)", correct: false}, {text: "開會 (hoi1 mui6)", correct: false}, {text: "報告 (bou3 gou3)", correct: true} ] }
-            }
+            title: "Dialogue A: Setting Up Status Reviews",
+            turns: [
+              { speaker: "A", name: "Manager", char: "經理好，我哋今日要開會對吓項目進度。", jp: "ging1 lei5 hou2, ngo5 dei6 gam1 jat1 jiu3 hoi1 mui6 deoi3 haa5 hong6 muk6 zeon3 dou6.", trans: "Hello Manager, we need to convene a meeting today to audit the project schedule progression status." },
+              { speaker: "B", name: "Colleague", char: "冇問題，我已經將最新報告發咗去你電郵，請參閱。", jp: "mou5 man6 tai4, ngo5 ji5 ging1 zoeng1 zui3 san1 bou3 gou3 faat1 zo2 heoi3 nei5 din6 jau4, cing2 caam1 jyut6.", trans: "No problem, I have already pushed the data update report directly to your email box, please refer to it." }
+            ]
           },
           {
-            title: "L2: Digital Business Mail Syntax",
-            description: "Executing crisp professional digital communication patterns while addressing external operational points.",
-            vocab: [
-              { char: "電郵", jp: "din6 jau4", phonetic: "Deen Yau", trans: "Email" },
-              { char: "請參閱", jp: "cing2 caam1 jyut6", phonetic: "Ching Chaam Yuut", trans: "Please refer to / find attached" },
-              { char: "回覆", jp: "wui4 fuk1", phonetic: "Wui Fook", trans: "To reply / respond" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Staff", char: "經理，我發咗封電郵比你。", jp: "ging1 lei5, ngo5 faat1 zo2 fung1 din6 jau4 bei2 nei5.", trans: "Manager, I have transmitted an email dispatch to you." },
-              { speaker: "B", name: "Manager", char: "好，我下晝會回覆你。", jp: "hou2, ngo5 haa6 zau3 wui4 fuk1 nei5.", trans: "Understood, I shall deliver a comprehensive response this afternoon." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "請參閱", frontJp: "cing2 caam1 jyut6", correctJp: "cing2 caam1 jyut6", correctChar: "請參閱" },
-              cloze: { textChar: "[請參閱]附件中嘅最新計劃書。", textJp: "[cing2 caam1 jyut6] fu6 gin2 zung1 ge3 zui3 san1 gai3 waak6 syu1.", trans: "Please refer to the latest project proposal document in the attachment.", targetJp: "cing2 caam1 jyut6", targetChar: "請參閱" },
-              mc: { prompt: "Select the term for performing a written 'Reply':", options: [ {text: "回覆 (wui4 fuk1)", correct: true}, {text: "電郵 (din6 jau4)", correct: false}, {text: "請參閱 (cing2 caam1 jyut6)", correct: false} ] }
-            }
+            title: "Dialogue B: Dealing with Server Downtime Emergency",
+            turns: [
+              { speaker: "A", name: "IT Lead", char: "工程師，公司伺服器死咗，網絡有問題！", jp: "gung1 cing4 si1, gung1 si1 ci6 fuk6 hei3 sei2 zo2, mong5 lok6 jau5 man6 tai4!", trans: "Engineer, the corporate server cluster crashed, the network infrastructure has an issue!" },
+              { speaker: "B", name: "Engineer", char: "我正喺度解決緊，等我更新埋系統就搞掂。", jp: "ngo5 zing3 hai2 dou6 gaai2 kyut3 gan2, dang2 ngo5 gang1 san1 maai4 hai6 tung2 zau6 gaau2 dim3.", trans: "I am actively resolving the tracking anomaly right now; once I deploy this hotfix system patch update, it will be fixed." }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "份合約需要你喺度[簽名]確認。", textJp: "fan6 hap6 joek3 seoi1 jiu3 nei5 hai2 dou6 [cim1 meng2] kok3 jin6.", trans: "The binding contract paperwork requires you to apply your signature here for authorization confirmation.", targetJp: "cim1 meng2", targetChar: "簽名" },
+          { textChar: "邊位同事負責同呢個[客戶]聯絡？", textJp: "bin1 wai2 tung4 si6 fu6 zak6 tung4 ne1 go3 [haak3 wu6] lyun4 lok3?", trans: "Which workplace colleague is responsible for tracking communications with this account client?", targetJp: "haak3 wu6", targetChar: "客戶" }
+        ],
+        practice_mcs: [
+          { prompt: "Identify the expression meaning 'Work Overtime':", options: [ {text: "放假 (fong3 gaa3)", correct: false}, {text: "加班 (gaa1 baan1)", correct: true}, {text: "出糧 (ceot1 loeng4)", correct: false} ] },
+          { prompt: "What does '解決 (gaai2 kyut3)' mean inside an office?", options: [ {text: "To resolve an anomaly / fix an issue", correct: true}, {text: "To tender resignation paperwork", correct: false}, {text: "To arrive late to shifts", correct: false} ] }
         ]
       },
       {
         id: "mod_advanced",
         title: "5. Advanced Corporate Diplomacy",
-        description: "Linguistic structures for market strategy alignment sessions, strategic negotiation loops, and high-level legal interpretations.",
-        lessons: [
+        description: "Tactful strategic negotiation dialogue execution patterns, financial market analysis phrasing, and high-level media interpretation.",
+        vocab: [
+          { char: "談判", jp: "taam4 pun3", phonetic: "Taahm Poon", trans: "Strategic Negotiation" },
+          { char: "合作", jp: "hap6 zok3", phonetic: "Hup Zock", trans: "Commercial Collaboration" },
+          { char: "利益", jp: "lei6 jik1", phonetic: "Lay Yick", trans: "Profit Interest margin" },
+          { char: "新聞", jp: "san1 man4", phonetic: "Sun Mun", trans: "Public News Dispatch" },
+          { char: "經濟", jp: "ging1 zai3", phonetic: "Ging Zai", trans: "Macroeconomics / Finance" },
+          { char: "市場", jp: "si5 coeng4", phonetic: "See Choeng", trans: "Open Market ecosystem" },
+          { char: "投資", jp: "tau4 zi1", phonetic: "Tau Zee", trans: "Capital Investment deployment" },
+          { char: "風險", jp: "fung1 him2", phonetic: "Fung Heem", trans: "Exposure Risk hazard" },
+          { char: "股票", jp: "gu2 piu3", phonetic: "Goo Piu", trans: "Equity Shares / Stock assets" },
+          { char: "通脹", jp: "tung1 zoeng3", phonetic: "Toong Zoeng", trans: "Fiscal Inflation index" },
+          { char: "競爭力", jp: "ging6 zang1 lik6", phonetic: "Ging Zung Lick", trans: "Market Competitiveness edge" },
+          { char: "策略", jp: "caak3 loek6", phonetic: "Chaak Loek", trans: "High-level Executive Strategy" },
+          { char: "代表", jp: "doi6 biu2", phonetic: "Doe Biu", trans: "Plenipotentiary Representative delegate" },
+          { char: "協議", jp: "hip3 ji5", phonetic: "Heep Yee", trans: "Mutual Accord Framework Agreement" },
+          { char: "讓步", jp: "joeng6 bou6", phonetic: "Yoeng Booh", trans: "Concede position / compromise concession" },
+          { char: "拒絕", jp: "keoi5 zyut3", phonetic: "Heui Zuut", trans: "Rebuff offer / formal rejection" },
+          { char: "贊成", jp: "zaan3 sing4", phonetic: "Zaan Sing", trans: "Vote in favor / support motion" },
+          { char: "反對", jp: "faan2 deoi3", phonetic: "Faan Deui", trans: "Oppose / dissent challenge" },
+          { char: "董事會", jp: "dung2 si6 wui2", phonetic: "Doong See Wui", trans: "Corporate Board of Directors" },
+          { char: "主席", jp: "zyu2 zik6", phonetic: "Zyu Zick", trans: "Committee Chairman" },
+          { char: "收購", jp: "sau1 kau3", phonetic: "Sau Kau", trans: "Corporate Takeover / Acquisition asset" },
+          { char: "合併", jp: "hap6 bing3", phonetic: "Hup Beeng", trans: "Corporate Merger consolidation" },
+          { char: "股價", jp: "gu2 gaa3", phonetic: "Goo Gah", trans: "Equity Share Valuation Price" },
+          { char: "破產", jp: "po3 caan2", phonetic: "Paw Chaan", trans: "Insolvency / Bankruptcy collapse" },
+          { char: "審計", jp: "sam2 gai3", phonetic: "Sum Gai", trans: "Fiscal Integrity Audit tracking" },
+          { char: "稅務", jp: "seoi3 mou6", phonetic: "Suuy Mooh", trans: "Corporate Taxation parameters" },
+          { char: "回報率", jp: "wui4 bou3 leot6", phonetic: "Wui Doe Leot", trans: "Return on Capital Investment (ROI)" },
+          { char: "融資", jp: "jung4 zi1", phonetic: "Yoong Zee", trans: "Financing deployment round" },
+          { char: "上市", jp: "soeng5 si5", phonetic: "Soeng See", trans: "Go Public via Initial Public Offering (IPO)" },
+          { char: "分析", jp: "fan1 sik1", phonetic: "Fun Sik", trans: "Data Analytics evaluation" }
+        ],
+        dialogues: [
           {
-            title: "L1: Formal Commercial Bargaining Loops",
-            description: "Tactful execution of structural compromises and alignment mechanics without generating relational abrasion.",
-            vocab: [
-              { char: "談判", jp: "taam4 pun3", phonetic: "Taahm Poon", trans: "Negotiation / Commercial bargaining" },
-              { char: "合作", jp: "hap6 zok3", phonetic: "Hup Zock", trans: "Collaboration / Partnership" },
-              { char: "利益", jp: "lei6 jik1", phonetic: "Lay Yick", trans: "Mutual Benefit / Profit interest" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Director A", char: "今次談判對雙方都有戰略利益。", jp: "gam1 ci1 taam4 pun3 deoi3 soeng1 fong1 dou1 jau5 zin3 loek6 lei6 jik1.", trans: "This negotiation process yields deep strategic value for both enterprise entities." },
-              { speaker: "B", name: "Director B", char: "同意，期待長遠合作。", jp: "tung1 ji3, kei4 doi6 coeng4 jyun5 hap6 zok3.", trans: "Concurred. We anticipate a long-term commercial partnership framework." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "談判", frontJp: "taam4 pun3", correctJp: "taam4 pun3", correctChar: "談判" },
-              cloze: { textChar: "我哋聽日會同對方代表進行[談判]。", textJp: "ngo5 dei6 ting1 jat1 wui4 tung4 deoi3 fong1 doi6 biu2 zeon3 hang4 [taam4 pun3].", trans: "We will proceed with high-level negotiations with their representatives tomorrow.", targetJp: "taam4 pun3", targetChar: "談判" },
-              mc: { prompt: "What word is defined as 'collaboration / working in partnership'?", options: [ {text: "利益 (lei6 jik1)", correct: false}, {text: "合作 (hap6 zok3)", correct: true}, {text: "談判 (taam4 pun3)", correct: false} ] }
-            }
+            title: "Dialogue A: Boardroom Takeover Speculations",
+            turns: [
+              { speaker: "A", name: "VP Alpha", char: "睇財經新聞，董事會正討論緊一項大型收購計劃。", jp: "tai2 coi4 ging1 san1 man4, dung2 si6 wui2 zing3 tou2 leon6 gan2 jat1 hong6 daai6 jing4 sau1 kau3 gai3 waak6.", trans: "According to the financial news dispatches, the Board of Directors is evaluating a massive corporate acquisition layout sequence." },
+              { speaker: "B", name: "VP Beta", char: "如果成事，我哋喺環球市場嘅競爭力會大增，但要防範融資風險。", jp: "jyu4 gwo2 sing4 si6, ngo5 dei6 hai2 waan4 kau4 si5 coeng4 ge3 ging6 zang1 lik6 wui4 daai6 zang1, daan6 jiu3 fong4 faan6 jung4 zi1 fung1 him2.", trans: "If successfully executed, our competitiveness edge across the global market ecosystem will spike immensely; however, we must safeguard against financing exposure risks." }
+            ]
           },
           {
-            title: "L2: Media Analysis & Economic News",
-            description: "Interpreting fiscal dispatches, policy edits, and macroeconomic performance reporting streams.",
-            vocab: [
-              { char: "新聞", jp: "san1 man4", phonetic: "Sun Mun", trans: "News Media Dispatches" },
-              { char: "經濟", jp: "ging1 zai3", phonetic: "Ging Zai", trans: "Macroeconomics / Financial framework" },
-              { char: "市場", jp: "si5 coeng4", phonetic: "See Choeng", trans: "Open Market Environment" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Analyst A", char: "睇財經新聞，本地市場開始回升。", jp: "tai2 coi4 ging1 san1 man4, boon2 dei6 si5 coeng4 hoi1 ci2 wui4 sing1.", trans: "Reviewing financial news broadcasts, local market indexes are recovering." },
-              { speaker: "B", name: "Analyst B", char: "但環球經濟依然不明朗。", jp: "daan6 waan4 kau4 ging1 zai3 ji1 jin4 bat1 ming4 long5.", trans: "However, global macroeconomic conditions remain fundamentally volatile." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "經濟", frontJp: "ging1 zai3", correctJp: "ging1 zai3", correctChar: "經濟" },
-              cloze: { textChar: "呢份報告分析咗最新嘅[市場]變動。", textJp: "ne1 fan6 bou3 gou3 fan1 sik1 zo2 zui3 san1 ge3 [si5 coeng4] bin3 dung6.", trans: "This analytical deployment covers critical structural modifications across the open market.", targetJp: "si5 coeng4", targetChar: "市場" },
-              mc: { prompt: "Which term translates to public 'News Media Dispatches'?", options: [ {text: "新聞 (san1 man4)", correct: true}, {text: "經濟 (ging1 zai3)", correct: false}, {text: "市場 (si5 coeng4)", correct: false} ] }
-            }
+            title: "Dialogue B: High-Stake Agreement Closings",
+            turns: [
+              { speaker: "A", name: "Negotiator A", char: "我哋已經作出了讓步，希望貴公司可以簽署呢份協議。", jp: "ngo5 dei6 ji5 ging1 zok3 ceot1 liu5 joeng6 bou6, hei1 mong6 gwai3 gung1 si1 ho2 ji5 cim1 cyu5 ne1 fan6 hip3 ji5.", trans: "Our faction has already put forward major concessions; we anticipate your enterprise entity can execute this mutual agreement framework now." },
+              { speaker: "B", name: "Negotiator B", char: "主席對大部分條款表示贊成，長遠合作符合雙方利益。", jp: "zyu2 zik6 deoi3 daai6 bou6 fan6 tiu4 fun2 biu2 si6 zaan3 sing4, coeng4 jyun5 hap6 zok3 fu4 hap6 soeng1 fong1 lei6 jik1.", trans: "The Committee Chairman has voted in favor of the vast majority of provisions; a long-term collaboration suits both our profit interests." }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "今次兩間跨國企業嘅[合併]非常成功。", textJp: "gam1 ci1 loeng5 gaan1 kwaa1 gwok3 kei5 jip6 ge3 [hap6 bing3] fei1 soeng4 sing1 gung1.", trans: "The structural merger consolidation between these two multinational enterprise entities was highly successful.", targetJp: "hap6 bing3", targetChar: "合併" },
+          { textChar: "高[通脹]環境嚴重打擊本地開放市場。", textJp: "gou1 [tung1 zoeng3] waan4 ging2 jim4 zung6 daa2 gik1 boon2 dei6 hoi1 fong1 si5 coeng4.", trans: "A high fiscal inflation environment severely dampens performance patterns across the local open market.", targetJp: "tung1 zoeng3", targetChar: "通脹" }
+        ],
+        practice_mcs: [
+          { prompt: "Select the metric parameter matching 'Return on Investment (ROI)':", options: [ {text: "預算 (ju6 syun3)", correct: false}, {text: "回報率 (wui4 bou3 leot6)", correct: true}, {text: "股票 (gu2 piu3)", correct: false} ] },
+          { prompt: "What action represents '讓步 (joeng6 bou6)' inside deal brokering?", options: [ {text: "Making an positional concession or compromise", correct: true}, {text: "Filing for total bankruptcy insolvency", correct: false}, {text: "Rebuffing an offer completely", correct: false} ] }
         ]
       },
       {
         id: "mod_professional",
-        title: "6. Legal & C-Suite Governance",
-        description: "Max-tier legal syntax formulation, cross-border corporate governance alignment, and boardroom defense structures.",
-        lessons: [
+        title: "6. C-Suite Governance & Legal",
+        description: "Max-tier boardroom legal jurisprudence alignment, parsing cross-border regulation statutory structures, and high-level correspondence.",
+        vocab: [
+          { char: "法律", jp: "faat3 leot6", phonetic: "Faat Leot", trans: "Jurisprudence System / Law" },
+          { char: "條款", jp: "tiu4 fun2", phonetic: "Tiu Foon", trans: "Statutory Clause / Legal Provision" },
+          { char: "訴訟", jp: "sou3 zung6", phonetic: "Sooh Zong", trans: "Judicial Litigation action" },
+          { char: "知識產權", jp: "zi1 sik1 caan2 kyun4", phonetic: "Zee Sik Chaan Quun", trans: "Intellectual Property Rights (IP)" },
+          { char: "專利", jp: "zyun1 lei6", phonetic: "Zun Lay", trans: "Patent protections" },
+          { char: "商標", jp: "soeng1 biu1", phonetic: "Soeng Biu", trans: "Registered Trademark brand block" },
+          { char: "侵權", jp: "cam1 kyun4", phonetic: "Chum Quun", trans: "Infringement breach of rights" },
+          { char: "賠償", jp: "pui4 soeng4", phonetic: "Pui Soeng", trans: "Financial Compensation indemnities" },
+          { char: "法庭", jp: "faat3 ting4", phonetic: "Faat Teeng", trans: "Court of Law tribunal" },
+          { char: "律師", jp: "leot6 si1", phonetic: "Leot See", trans: "General Attorney Counsel" },
+          { char: "合規", jp: "hap6 kwai1", phonetic: "Hup Kwai", trans: "Regulatory Compliance tracking" },
+          { char: "監管", jp: "gaam1 gun2", phonetic: "Gaam Goon", trans: "Government Oversight Supervision" },
+          { char: "漏洞", jp: "lau6 dung6", phonetic: "Lau Doe", trans: "Contractual Loophole / vulnerability" },
+          { char: "保障", jp: "bou2 zoeng3", phonetic: "Booh Zoeng", trans: "Asset Protection warranty" },
+          { char: "保密協議", jp: "bou2 mat6 hip3 ji5", phonetic: "Booh Mut Heep Yee", trans: "Non-Disclosure Agreement (NDA)" },
+          { char: "違約", jp: "wai4 joek3", phonetic: "Wai Joek", trans: "Breach of Contract default" },
+          { char: "不可抗力", jp: "bat1 ho2 kong3 lik6", phonetic: "But Haw Kong Lick", trans: "Force Majeure clause act of God" },
+          { char: "仲裁", jp: "zung6 coi4", phonetic: "Zong Choy", trans: "Neutral Binding Arbitration panel" },
+          { char: "董事長", jp: "dung3 si6 zoeng2", phonetic: "Doong See Zoeng", trans: "Board Chairman Executive" },
+          { char: "執行長", jp: "zap1 hang4 zoeng2", phonetic: "Zap Huhng Zoeng", trans: "Chief Executive Officer (CEO)" },
+          { char: "財務長", jp: "coi4 mou6 zoeng2", phonetic: "Choy Mooh Zoeng", trans: "Chief Financial Officer (CFO)" },
+          { char: "股東大會", jp: "gu2 dung1 daai6 wui5", phonetic: "Goo Doong Daai Wui", trans: "General Shareholder Assembly" },
+          { char: "年度報告", jp: "nin4 dou6 bou3 gou3", phonetic: "Neen Doe Booh Gooh", trans: "Annual Performance Report" },
+          { char: "企業治理", jp: "kei5 jip6 zi6 lei5", phonetic: "Kay Yeep Zee Lay", trans: "Corporate Governance protocol" },
+          { char: "內幕交易", jp: "noi6 mok6 gaau1 jik6", phonetic: "Noi Mook Gaau Yick", trans: "Insider Trading felony" },
+          { char: "洗黑錢", jp: "sai2 hak1 cin2", phonetic: "Sai Huk Cheen", trans: "Money Laundering operation" },
+          { char: "利益衝突", jp: "lei6 jik1 cung1 dat6", phonetic: "Lay Yick Choong Dut", trans: "Conflict of Interest layout" },
+          { char: "清盤", jp: "cing1 poon4", phonetic: "Cheeng Poon", trans: "Corporate Liquidation dissolution" },
+          { char: "破產保護", jp: "po3 caan2 bou2 zoeng3", phonetic: "Paw Chaan Booh Zoeng", trans: "Chapter 11 Bankruptcy Protection" },
+          { char: "免責條款", jp: "min5 zak6 tiu4 fun2", phonetic: "Meen Zark Tiu Foon", trans: "Disclaimer Limitation of Liability clause" }
+        ],
+        dialogues: [
           {
-            title: "L1: Commercial Contracts & Legal Protections",
-            description: "Auditing corporate transactional risk terms and structuring binding risk mitigation clauses.",
-            vocab: [
-              { char: "合約", jp: "hap6 joek3", phonetic: "Hup Joek", trans: "Binding Commercial Contract" },
-              { char: "法律", jp: "faat3 leot6", phonetic: "Faat Leot", trans: "Jurisprudence System / Law" },
-              { char: "條款", jp: "tiu4 fun2", phonetic: "Tiu Foon", trans: "Specific Legal Provision / Clause" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "Counsel", char: "簽合約前，要睇清每項條款。", jp: "cim1 hap6 joek3 cin4, jiu3 tai2 cing1 mui5 hong6 tiu4 fun2.", trans: "Prior to contract execution, verify the structural risk of every single provision." },
-              { speaker: "B", name: "CEO", char: "好，確保完全符合法律要求。", jp: "hou2, kok3 bou2 jyun4 cyun4 fu4 hap6 faat3 leot6 jiu3 kau2.", trans: "Understood. Ensure complete alignment with all statutory jurisprudence benchmarks." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "條款", frontJp: "tiu4 fun2", correctJp: "tiu4 fun2", correctChar: "條款" },
-              cloze: { textChar: "我哋需要律師修改[合約]嘅保障內容。", textJp: "ngo5 dei6 seoi1 jiu3 leot6 si1 sau1 goi2 [hap6 joek3] ge3 bou2 zoeng3 noi6 jung4.", trans: "We require general counsel to modify the core liability protection scope inside the contract.", targetJp: "hap6 joek3", targetChar: "合約" },
-              mc: { prompt: "Identify the token representing 'Jurisprudence System / Law':", options: [ {text: "條款 (tiu4 fun2)", correct: false}, {text: "法律 (faat3 leot6)", correct: true}, {text: "合約 (hap6 joek3)", correct: false} ] }
-            }
+            title: "Dialogue A: IP Infringement Emergency Session",
+            turns: [
+              { speaker: "A", name: "General Counsel", char: "董事長，有競爭對手侵犯我哋嘅專利同知識產權。", jp: "dung3 si6 zoeng2, jau5 ging6 zang1 deoi3 sau2 cam1 faan6 ngo5 dei6 ge3 zyun1 lei6 tung4 zi1 sik1 caan2 kyun4.", trans: "Board Chairman, a direct market competitor has systematically infringed upon our active patent protections and intellectual property assets." },
+              { speaker: "B", name: "Chairman", char: "即刻同律師團隊準備訴訟，去法庭要求巨額賠償保障企業利益。", jp: "zik1 hak1 tung4 leot6 si1 tyun4 deoi3 zeon2 bei6 sou3 zung6, heoi3 faat3 ting4 jiu3 kau2 geoi6 ngaak6 pui4 soeng4 bou2 zoeng3 kei5 jip6 lei6 jik1.", trans: "Immediately mobilize general counsel to mount a judicial litigation file; present our case at the court of law tribunal to seek massive financial indemnities to shield enterprise interests." }
+            ]
           },
           {
-            title: "L2: Shareholder Assemblies & Keynotes",
-            description: "Delivering institutional-grade performance breakdowns during investor calls and board presentations.",
-            vocab: [
-              { char: "演講", jp: "jin2 zong2", phonetic: "Yeen Zong", trans: "Executive Address / Keynote Presentation" },
-              { char: "股東", jp: "gu2 dung1", phonetic: "Goo Dung", trans: "Equity Shareholder / Investor Asset" },
-              { char: "策略", jp: "caak3 loek6", phonetic: "Chaak Loek", trans: "High-level Corporate Strategy" }
-            ],
-            dialogue: [
-              { speaker: "A", name: "VP Finance", char: "董事長嘅演講令股東好有信心。", jp: "dung3 si6 zoeng2 ge3 jin2 zong2 ling6 gu2 dung1 hou2 jau5 seon3 sam1.", trans: "The Chairman's keynote address instilled deep confidence across institutional equity investors." },
-              { speaker: "B", name: "Director C", char: "因為我哋嘅長遠策略非常清晰。", jp: "jan1 wai6 ngo5 dei6 ge3 coeng4 jyun5 caak3 loek6 fei1 soeng4 cing1 sik1.", trans: "Because our long-term market strategy architecture is transparently defined." }
-            ],
-            practice: {
-              fcQuestion: { frontChar: "股東", frontJp: "gu2 dung1", correctJp: "gu2 dung1", correctChar: "股東" },
-              cloze: { textChar: "聽日我會向[股東]大會發表最新發展策略。", textJp: "ting1 jat1 ngo5 wui4 hoeng3 [gu2 dung1] daai6 wui5 faat3 biu2 zui3 san1 faat3 zin3 caak3 loek6.", trans: "Tomorrow I shall present our updated corporate expansion strategy directly to the general shareholder assembly.", targetJp: "gu2 dung1", targetChar: "股東" },
-              mc: { prompt: "What word refers to 'High-level Corporate Strategy'?", options: [ {text: "策略 (caak3 loek6)", correct: true}, {text: "演講 (jin2 zong2)", correct: false}, {text: "股東 (gu2 dung1)", correct: false} ] }
-            }
+            title: "Dialogue B: Pre-IPO Compliance Audits",
+            turns: [
+              { speaker: "A", name: "CFO", char: "執行長，喺召開股東大會之前，我們要確保所有年度報告完全符合合規監管。", jp: "zap1 hang4 zoeng2, hai2 ziu6 hoi1 gu2 dung1 daai6 wui5 zi1 cin4, ngo5 dei6 jiu3 kok3 bou2 soeng2 nin4 dou6 bou3 gou3 jyun4 cyun4 fu4 hap6 hap6 kwai1 gaam1 gun2.", trans: "Chief Executive, prior to convening the general shareholder assembly, we must verify that all annual report modules thoroughly check out under national regulatory compliance supervision." },
+              { speaker: "B", name: "CEO", char: "啱，避免任何利益衝突同法律漏洞，確保企業治理清白。", jp: "ngaam1, bei6 min5 jam2 ho4 lei6 jik1 cung1 dat6 tung4 faat3 leot6 lau6 dung6, kok3 bou2 kei5 jip6 zi6 lei5 cing1 baak6.", trans: "Precisely. Mitigate any potential conflict of interest layout matrices or contractual vulnerabilities to ensure our corporate governance record stands clean." }
+            ]
           }
+        ],
+        practice_clozes: [
+          { textChar: "簽署[保密協議]可以有效防止核心數據洩漏。", textJp: "cim1 m5 bou2 mat6 hip3 ji5 ho2 ji5 jau5 haau6 fong4 zi2 hat6 sam1 sou3 geoi6 sai3 lau6.", trans: "Executing a formal non-disclosure agreement framework serves as an effective protection block preventing core proprietary data leakage leaks.", targetJp: "bou2 mat6 hip3 ji5", targetChar: "保密協議" },
+          { textChar: "合約中包含一項[不可抗力]免責條款。", textJp: "hap6 joek3 zung1 baau1 ham4 jat1 hong6 [bat1 ho2 kong3 lik6] min5 zak6 tiu4 fun2.", trans: "The transaction document contains a robust Force Majeure limitation of liability clause protection parameter.", targetJp: "bat1 ho2 kong3 lik6", targetChar: "不可抗力" }
+        ],
+        practice_mcs: [
+          { prompt: "Identify the white-collar infraction known as 'Money Laundering':", options: [ {text: "內幕交易 (noi6 mok6 gaau1 jik6)", correct: false}, {text: "洗黑錢 (sai2 hak1 cin2)", correct: true}, {text: "利益衝突 (lei6 jik1 cung1 dat6)", correct: false} ] },
+          { prompt: "What officer position is the '執行長 (zap1 hang4 zoeng2)'?", options: [ {text: "Chief Executive Officer (CEO)", correct: true}, {text: "Chief Financial Officer (CFO)", correct: false}, {text: "Board Chairman Committee Lead", correct: false} ] }
         ]
       }
     ];
 
-    // Local Storage Progress Management Infrastructure
+    // Local Storage System Profile Controls
     function initProgressState() {
-      const stored = localStorage.getItem('粵語精英_progress_v2');
+      const stored = localStorage.getItem('粵語精英_pro_v3');
       if (stored) {
-        try {
-          userProgressProfile = JSON.parse(stored);
-        } catch(e) {
-          userProgressProfile = { understoodLessons: [] };
-        }
-      } else {
-        userProgressProfile = { understoodLessons: [] };
-      }
+        try { userProgressProfile = JSON.parse(stored); } catch(e) { userProgressProfile = { understoodSections: [] }; }
+      } else { userProgressProfile = { understoodSections: [] }; }
     }
 
     function saveProgressState() {
-      localStorage.setItem('粵語精英_progress_v2', JSON.stringify(userProgressProfile));
+      localStorage.setItem('粵語精英_pro_v3', JSON.stringify(userProgressProfile));
       updateProgressMetrics();
     }
 
-    // Dynamic View Calculation & Progress Bars Compilation
     function updateProgressMetrics() {
-      let absoluteLessonsCount = 0;
-      let absoluteUnderstoodCount = 0;
+      let targetCount = databaseCurriculum.length;
+      let checkCount = 0;
 
-      databaseCurriculum.forEach((mod, mIdx) => {
-        let modCount = 0;
-        let modUnderstood = 0;
-
-        mod.lessons.forEach((les, lIdx) => {
-          absoluteLessonsCount++;
-          modCount++;
-          const uniqueKey = `${mIdx}_${lIdx}`;
-          
-          // Apply visual classes to dynamic sidebar node hooks
-          const domSidebarNode = document.getElementById(`side-les-${mIdx}-${lIdx}`);
-          if (userProgressProfile.understoodLessons.includes(uniqueKey)) {
-            absoluteUnderstoodCount++;
-            modUnderstood++;
-            if (domSidebarNode) domSidebarNode.classList.add('understood');
-          } else {
-            if (domSidebarNode) domSidebarNode.classList.remove('understood');
-          }
-        });
-
-        // Compute local module metric data nodes
-        const modPercentage = Math.round((modUnderstood / modCount) * 100);
-        const modPercentTextNode = document.getElementById(`mod-pct-txt-${mIdx}`);
-        if(modPercentTextNode) modPercentTextNode.textContent = `${modPercentage}%`;
-      });
-
-      // Compute general summary status profiles
-      const overallPercent = absoluteLessonsCount > 0 ? Math.round((absoluteUnderstoodCount / absoluteLessonsCount) * 100) : 0;
-      document.getElementById('overall-txt').textContent = `${overallPercent}%`;
-      document.getElementById('overall-bar').style.width = `${overallPercent}%`;
-    }
-
-    // Dynamic Curriculum Navigation Map Generation Engine
-    function paintSidebarRoadmap() {
-      const sidebarRoot = document.getElementById('curriculum-sidebar');
-      // Purge everything except header placeholder
-      const headerHtml = sidebarRoot.innerHTML;
-      sidebarRoot.innerHTML = headerHtml;
-
-      databaseCurriculum.forEach((mod, mIdx) => {
-        const modBox = document.createElement('div');
-        modBox.classList.add('module-group');
-        modBox.id = `mod-group-${mIdx}`;
-        if (mIdx === currentModuleIdx) modBox.classList.add('active');
-
-        let innerLessonsMarkup = "";
-        mod.lessons.forEach((les, lIdx) => {
-          const isActive = (mIdx === currentModuleIdx && lIdx === currentLessonIdx) ? "active" : "";
-          innerLessonsMarkup += `
-            <button class="lesson-item ${isActive}" id="side-les-${mIdx}-${lIdx}" onclick="selectLessonRoute(${mIdx}, ${lIdx})">
-              <span>${les.title}</span>
-              <span class="status-badge">✓</span>
-            </button>
-          `;
-        });
-
-        modBox.innerHTML = `
-          <button class="module-trigger" onclick="toggleModuleFold(${mIdx})">
-            <div class="module-title-row">
-              <span class="module-title">${mod.title}</span>
-              <span style="font-size:0.75rem; color:var(--pink-primary);" id="mod-pct-txt-${mIdx}">0%</span>
-            </div>
-            <div class="module-meta">
-              <span>${mod.lessons.length} Modules / Lessons</span>
-            </div>
-          </button>
-          <div class="lesson-list" id="lesson-container-${mIdx}">
-            ${innerLessonsMarkup}
-          </div>
-        `;
-        sidebarRoot.appendChild(modBox);
-      });
-    }
-
-    function toggleModuleFold(mIdx) {
-      const allGroups = document.querySelectorAll('.module-group');
-      allGroups.forEach((g, idx) => {
-        if(idx === mIdx) {
-          g.classList.add('active');
+      databaseCurriculum.forEach((sec, idx) => {
+        const itemNode = document.getElementById(`side-sec-${idx}`);
+        if (userProgressProfile.understoodSections.includes(sec.id)) {
+          checkCount++;
+          if (itemNode) itemNode.classList.add('understood');
         } else {
-          g.classList.remove('active');
+          if (itemNode) itemNode.classList.remove('understood');
         }
       });
+
+      const overallPct = targetCount > 0 ? Math.round((checkCount / targetCount) * 100) : 0;
+      document.getElementById('overall-txt').textContent = `${overallPct}%`;
+      document.getElementById('overall-bar').style.width = `${overallPct}%`;
     }
 
-    function selectLessonRoute(mIdx, lIdx) {
-      // Deactivate older dynamic tracker elements
-      const olderActive = document.querySelector('.lesson-item.active');
-      if (olderActive) olderActive.classList.remove('active');
+    // Paint Left Navigation Map Architecture UI
+    function paintSidebarRoadmap() {
+      const container = document.getElementById('curriculum-sidebar');
+      const headerHtml = container.innerHTML;
+      container.innerHTML = headerHtml;
 
-      currentModuleIdx = mIdx;
-      currentLessonIdx = lIdx;
+      databaseCurriculum.forEach((sec, idx) => {
+        const btn = document.createElement('button');
+        btn.classList.add('section-item');
+        btn.id = `side-sec-${idx}`;
+        if (idx === activeSectionIdx) btn.classList.add('active');
+        btn.onclick = () => selectSectionTrack(idx);
 
-      const currentGroup = document.getElementById(`mod-group-${mIdx}`);
-      if(currentGroup) toggleModuleFold(mIdx);
+        btn.innerHTML = `
+          <div class="section-title-row">
+            <span class="section-title">${sec.title}</span>
+            <span class="status-badge">✓</span>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Contains 30 Massive Dictionary Entries</div>
+        `;
+        container.appendChild(btn);
+      });
+    }
 
-      const targetedSidebarNode = document.getElementById(`side-les-${mIdx}-${lIdx}`);
-      if (targetedSidebarNode) targetedSidebarNode.classList.add('active');
+    function selectSectionTrack(idx) {
+      const activeBtn = document.querySelector('.section-item.active');
+      if (activeBtn) activeBtn.classList.remove('active');
+
+      activeSectionIdx = idx;
+      const targetBtn = document.getElementById(`side-sec-${idx}`);
+      if (targetBtn) targetBtn.classList.add('active');
 
       loadActiveWorkspaceContent();
     }
 
-    // Active Core Workspace Compilation Rendering Core Engine
+    // Workspace Dynamic Layout Generators
     function loadActiveWorkspaceContent() {
-      const activeModule = databaseCurriculum[currentModuleIdx];
-      const activeLesson = activeModule.lessons[currentLessonIdx];
-      const uniqueKey = `${currentModuleIdx}_${currentLessonIdx}`;
-      const hasChecked = userProgressProfile.understoodLessons.includes(uniqueKey);
+      const activeData = databaseCurriculum[activeSectionIdx];
+      const hasChecked = userProgressProfile.understoodSections.includes(activeData.id);
 
-      // 1. Compile Hero presentation card elements
-      const heroTarget = document.getElementById('lesson-hero-target');
-      heroTarget.innerHTML = `
-        <div class="lesson-badge">${activeModule.title}</div>
-        <h2 class="lesson-main-title">${activeLesson.title}</h2>
-        <p class="lesson-desc">${activeLesson.description}</p>
-        <div class="action-row">
+      // Hero Frame Build
+      document.getElementById('lesson-hero-target').innerHTML = `
+        <div class="lesson-hero-card">
+          <div class="lesson-badge">Active Master Syllabus Segment</div>
+          <h2 style="font-size:1.6rem; margin-bottom:6px;">${activeData.title}</h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:15px; line-height:1.4;">${activeData.description}</p>
           <label class="completion-checkbox-label">
-            <input type="checkbox" id="chk-understood-state" ${hasChecked ? 'checked' : ''} onchange="toggleUnderstoodAction(this)">
+            <input type="checkbox" id="chk-section-state" ${hasChecked ? 'checked' : ''} onchange="toggleUnderstoodAction(this)">
             <span class="custom-checkbox"></span>
-            <span>I Already Understand This Material</span>
+            <span>Mark This Entire Structural Syllabus Segment as Fully Mastered</span>
           </label>
         </div>
       `;
 
-      // 2. Load vocabularies parsing systems
+      // Vocabulary Database Grid Inject
+      document.getElementById('vocab-header-count').textContent = `Lexicon Database Array (${activeData.vocab.length} High-Yield Items Detailed)`;
       const vocabTarget = document.getElementById('vocab-target');
       vocabTarget.innerHTML = "";
-      activeLesson.vocab.forEach(v => {
-        const itemBox = document.createElement('div');
-        itemBox.classList.add('linguistic-box');
-        itemBox.innerHTML = `
+      
+      activeData.vocab.forEach(v => {
+        const row = document.createElement('div');
+        row.classList.add('linguistic-box');
+        row.innerHTML = `
           <div class="lang-row">
             <span class="char-display">${v.char}</span>
             <span class="jyutping-display">${v.jp}</span>
-            <span class="phonetic-guide">Pronounced: "${v.phonetic}"</span>
+            <span class="phonetic-guide">Phonetic Guide: [${v.phonetic}]</span>
           </div>
-          <div class="translation-display">${v.trans}</div>
+          <div class="translation-display">English Definition: ${v.trans}</div>
         `;
-        vocabTarget.appendChild(itemBox);
+        vocabTarget.appendChild(row);
       });
 
-      // 3. Parse Conversations Matrix Dialogues
-      const dialogueTarget = document.getElementById('dialogue-target');
-      dialogueTarget.innerHTML = "";
-      const dContainer = document.createElement('div');
-      dContainer.classList.add('dialogue-container');
+      // Practical Conversations List Engine Build
+      const diagTarget = document.getElementById('dialogue-target');
+      diagTarget.innerHTML = "";
+      const outerWrapper = document.createElement('div');
+      outerWrapper.classList.add('dialogue-wrapper-block');
 
-      activeLesson.dialogue.forEach(d => {
-        const turnBox = document.createElement('div');
-        turnBox.classList.add('dialogue-turn', `speaker-${d.speaker}`);
-        turnBox.innerHTML = `
-          <div class="avatar">${d.name[0]}</div>
-          <div class="bubble-content">
-            <div style="font-size:0.75rem; color:var(--pink-light); margin-bottom:4px;">${d.name} (${d.speaker})</div>
-            <div class="char-display" style="font-size:1.25rem; margin-bottom:4px;">${d.char}</div>
-            <div class="jyutping-display" style="display:inline-block; margin-bottom:6px;">${d.jp}</div>
-            <div class="translation-display" style="margin-top:0; border-top:1px solid rgba(255,255,255,0.05); padding-top:4px;">${d.trans}</div>
-          </div>
-        `;
-        dContainer.appendChild(turnBox);
+      activeData.dialogues.forEach(d => {
+        const titleHeader = document.createElement('div');
+        titleHeader.classList.add('dialogue-title-header');
+        titleHeader.textContent = d.title;
+        outerWrapper.appendChild(titleHeader);
+
+        const dBox = document.createElement('div');
+        dBox.classList.add('dialogue-container');
+
+        d.turns.forEach(t => {
+          const turn = document.createElement('div');
+          turn.classList.add('dialogue-turn', `speaker-${t.speaker}`);
+          turn.innerHTML = `
+            <div class="avatar">${t.name[0]}</div>
+            <div class="bubble-content">
+              <div style="font-size:0.7rem; color:var(--pink-light); margin-bottom:3px;">${t.name} (${t.speaker})</div>
+              <div class="char-display" style="font-size:1.2rem; margin-bottom:3px;">${t.char}</div>
+              <div class="jyutping-display" style="display:inline-block; margin-bottom:5px;">${t.jp}</div>
+              <div style="font-size:0.85rem; color:var(--text-muted); border-top:1px solid rgba(255,255,255,0.05); padding-top:4px;">${t.trans}</div>
+            </div>
+          `;
+          dBox.appendChild(turn);
+        });
+        outerWrapper.appendChild(dBox);
       });
-      dialogueTarget.appendChild(dContainer);
+      diagTarget.appendChild(outerWrapper);
 
-      // 4. Regenerate Interactive Practice Tasks parameters
-      resetPracticeArena(activeLesson.practice);
+      // Flash Arena Setup Parameters Routine
+      resetPracticeArenaLoad();
     }
 
-    function toggleUnderstoodAction(checkboxElement) {
-      const uniqueKey = `${currentModuleIdx}_${currentLessonIdx}`;
-      if (checkboxElement.checked) {
-        if (!userProgressProfile.understoodLessons.includes(uniqueKey)) {
-          userProgressProfile.understoodLessons.push(uniqueKey);
-        }
+    function toggleUnderstoodAction(el) {
+      const secId = databaseCurriculum[activeSectionIdx].id;
+      if (el.checked) {
+        if (!userProgressProfile.understoodSections.includes(secId)) userProgressProfile.understoodSections.push(secId);
       } else {
-        userProgressProfile.understoodLessons = userProgressProfile.understoodLessons.filter(k => k !== uniqueKey);
+        userProgressProfile.understoodSections = userProgressProfile.understoodSections.filter(id => id !== secId);
       }
       saveProgressState();
     }
 
-    function switchTab(targetTabId) {
-      const tabs = document.querySelectorAll('.tab-btn');
-      const panels = document.querySelectorAll('.tab-panel');
-      
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
 
-      // Re-engage accurate active layout handles
-      const clickedTab = Array.from(tabs).find(t => t.textContent.toLowerCase().includes(targetTabId));
-      if(clickedTab) clickedTab.classList.add('active');
-
-      const targetPanel = document.getElementById(`panel-${targetTabId}`);
-      if(targetPanel) targetPanel.classList.add('active');
+      const clicked = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.onclick.toString().includes(tabId));
+      if (clicked) clicked.classList.add('active');
+      const targetPanel = document.getElementById(`panel-${tabId}`);
+      if (targetPanel) targetPanel.classList.add('active');
     }
 
-    // Practice Arena Mechanics Processing Engines
-    let localPracticeDataRef = null;
+    // Dynamic Flash Arena Random Access Routers
+    let activeFcItem = null;
+    let activeClozeItem = null;
+    let activeMcItem = null;
 
-    function resetPracticeArena(practicePayload) {
-      localPracticeDataRef = practicePayload;
-
-      // Reset components UI feedback layers
-      document.getElementById('fc-feedback').textContent = "";
-      document.getElementById('fc-feedback').className = "feedback-box";
-      document.getElementById('fc-input').value = "";
+    function resetPracticeArenaLoad() {
+      // Clear values feedback
+      document.getElementById('fc-feedback').textContent = ""; document.getElementById('fc-feedback').className = "feedback-box";
+      document.getElementById('cloze-feedback').textContent = ""; document.getElementById('cloze-feedback').className = "feedback-box";
+      document.getElementById('mc-feedback').textContent = ""; document.getElementById('mc-feedback').className = "feedback-box";
+      
+      document.getElementById('fc-input').value = ""; document.getElementById('cloze-input').value = "";
       document.getElementById('flashcard').classList.remove('flipped');
 
-      document.getElementById('cloze-feedback').textContent = "";
-      document.getElementById('cloze-feedback').className = "feedback-box";
-      document.getElementById('cloze-input').value = "";
-
-      document.getElementById('mc-feedback').textContent = "";
-      document.getElementById('mc-feedback').className = "feedback-box";
-
-      // Render items dynamic depending on mode parameters switches
-      refreshPracticeQuestionsRendering();
+      cycleDrillItem('fc');
+      cycleDrillItem('cloze');
+      cycleDrillItem('mc');
     }
 
-    function refreshPracticeQuestionsRendering() {
-      if(!localPracticeDataRef) return;
-
-      // A. Populate flashcards labels elements
-      const frontContent = document.getElementById('card-front-content');
-      const backContent = document.getElementById('card-back-content');
-
-      if (characterModeActive) {
-        frontContent.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);">Identify Character</span><br><span class="jyutping-display">${localPracticeDataRef.fcQuestion.frontJp}</span>`;
-        backContent.innerHTML = `<span style="font-size:0.8rem; color:var(--pink-light);">Correct Match</span><br><span class="char-display" style="font-size:2rem;">${localPracticeDataRef.fcQuestion.correctChar}</span>`;
-        document.getElementById('fc-input').placeholder = "Type target Chinese characters...";
-      } else {
-        frontContent.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);">Identify Jyutping</span><br><span class="char-display" style="font-size:2rem;">${localPracticeDataRef.fcQuestion.frontChar}</span>`;
-        backContent.innerHTML = `<span style="font-size:0.8rem; color:var(--pink-light);">Correct Match</span><br><span class="jyutping-display">${localPracticeDataRef.fcQuestion.correctJp}</span>`;
-        document.getElementById('fc-input').placeholder = "Type target romanized Jyutping digits...";
+    function cycleDrillItem(type) {
+      const pool = databaseCurriculum[activeSectionIdx];
+      
+      if (type === 'fc') {
+        document.getElementById('flashcard').classList.remove('flipped');
+        document.getElementById('fc-feedback').textContent = "";
+        document.getElementById('fc-input').value = "";
+        // Select random item from 30 vocabularies
+        activeFcItem = pool.vocab[Math.floor(Math.random() * pool.vocab.length)];
+        
+        const front = document.getElementById('card-front-content');
+        const back = document.getElementById('card-back-content');
+        
+        if (characterModeActive) {
+          front.innerHTML = `<span style="font-size:0.75rem; color:var(--text-muted);">Identify Character block from reading</span><br><span class="jyutping-display">${activeFcItem.jp}</span>`;
+          back.innerHTML = `<span style="font-size:0.75rem; color:var(--pink-light);">Correct Character Target</span><br><span class="char-display" style="font-size:1.8rem;">${activeFcItem.char}</span>`;
+          document.getElementById('fc-input').placeholder = "Input matching Chinese characters...";
+        } else {
+          front.innerHTML = `<span style="font-size:0.75rem; color:var(--text-muted);">Identify Jyutping romanization from reading</span><br><span class="char-display" style="font-size:1.8rem;">${activeFcItem.char}</span>`;
+          back.innerHTML = `<span style="font-size:0.75rem; color:var(--pink-light);">Correct Romanization Key</span><br><span class="jyutping-display">${activeFcItem.jp}</span>`;
+          document.getElementById('fc-input').placeholder = "Input matching numerical jyutping string...";
+        }
       }
-
-      // B. Populate cloze text block strings placeholders
-      const promptEl = document.getElementById('cloze-prompt');
-      document.getElementById('cloze-trans').textContent = localPracticeDataRef.cloze.trans;
-
-      if(characterModeActive) {
-        promptEl.textContent = localPracticeDataRef.cloze.textChar;
-        document.getElementById('cloze-input').placeholder = "Input matching characters...";
-      } else {
-        promptEl.textContent = localPracticeDataRef.cloze.textJp;
-        document.getElementById('cloze-input').placeholder = "Input matching jyutping numerical code...";
+      
+      if (type === 'cloze') {
+        document.getElementById('cloze-feedback').textContent = "";
+        document.getElementById('cloze-input').value = "";
+        activeClozeItem = pool.practice_clozes[Math.floor(Math.random() * pool.practice_clozes.length)];
+        
+        document.getElementById('cloze-trans').textContent = `Target Context Translation: "${activeClozeItem.trans}"`;
+        if (characterModeActive) {
+          document.getElementById('cloze-prompt').textContent = activeClozeItem.textChar;
+          document.getElementById('cloze-input').placeholder = "Input missing character text...";
+        } else {
+          document.getElementById('cloze-prompt').textContent = activeClozeItem.textJp;
+          document.getElementById('cloze-input').placeholder = "Input missing jyutping romanization string...";
+        }
       }
-
-      // C. Render MC items questions block modules
-      document.getElementById('mc-prompt').textContent = localPracticeDataRef.mc.prompt;
-      const optionsBox = document.getElementById('mc-options-box');
-      optionsBox.innerHTML = "";
-
-      localPracticeDataRef.mc.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.classList.add('option-button');
-        btn.textContent = opt.text;
-        btn.onclick = () => evaluateMultipleChoiceSelection(btn, opt.correct);
-        optionsBox.appendChild(btn);
-      });
+      
+      if (type === 'mc') {
+        document.getElementById('mc-feedback').textContent = "";
+        activeMcItem = pool.practice_mcs[Math.floor(Math.random() * pool.practice_mcs.length)];
+        
+        document.getElementById('mc-prompt').textContent = activeMcItem.prompt;
+        const grid = document.getElementById('mc-options-box');
+        grid.innerHTML = "";
+        
+        activeMcItem.options.forEach((opt, idx) => {
+          const b = document.createElement('button');
+          b.classList.add('option-button');
+          b.textContent = opt.text;
+          b.onclick = () => checkMultipleChoice(b, opt.correct);
+          grid.appendChild(b);
+        });
+      }
     }
 
-    function flipCard() {
-      document.getElementById('flashcard').classList.toggle('flipped');
-    }
+    function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
 
-    // Dynamic Sanitization and Verification Match Parsers
-    function normalizeStringContent(str) {
+    function cleanStringValue(str) {
       return str.toLowerCase().trim().replace(/\s+/g, '').replace(/[^a-z0-9\u4e00-\u9fa5]/g, '');
     }
 
     function checkFlashcard() {
-      const inputVal = document.getElementById('fc-input').value;
-      const targetFeedback = document.getElementById('fc-feedback');
-      
-      const parsedUser = normalizeStringContent(inputVal);
-      const expectedAnswer = characterModeActive ? localPracticeDataRef.fcQuestion.correctChar : localPracticeDataRef.fcQuestion.correctJp;
-      const parsedExpected = normalizeStringContent(expectedAnswer);
-
-      // Force card rotation loop mechanism reveal anyway
+      const val = document.getElementById('fc-input').value;
+      const fb = document.getElementById('fc-feedback');
       document.getElementById('flashcard').classList.add('flipped');
 
-      if (parsedUser === parsedExpected) {
-        targetFeedback.textContent = "✓ Excellence! Identification verified perfectly.";
-        targetFeedback.style.color = varColorString('success-green');
+      const expected = characterModeActive ? activeFcItem.char : activeFcItem.jp;
+      if (cleanStringValue(val) === cleanStringValue(expected)) {
+        fb.textContent = "✓ Verified! Excellent linguistic recall memory performance.";
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--success-green').trim();
       } else {
-        targetFeedback.textContent = `✗ Inaccurate. Expected value configuration: "${expectedAnswer}"`;
-        targetFeedback.style.color = varColorString('pink-primary');
+        fb.textContent = `✗ Inaccurate. Correct dictionary target is: "${expected}"`;
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--pink-primary').trim();
       }
     }
 
     function checkCloze() {
-      const inputVal = document.getElementById('cloze-input').value;
-      const targetFeedback = document.getElementById('cloze-feedback');
+      const val = document.getElementById('cloze-input').value;
+      const fb = document.getElementById('cloze-feedback');
+      const expected = characterModeActive ? activeClozeItem.targetChar : activeClozeItem.targetJp;
 
-      const parsedUser = normalizeStringContent(inputVal);
-      const expectedAnswer = characterModeActive ? localPracticeDataRef.cloze.targetChar : localPracticeDataRef.cloze.targetJp;
-      const parsedExpected = normalizeStringContent(expectedAnswer);
-
-      if (parsedUser === parsedExpected) {
-        targetFeedback.textContent = "✓ Brilliant context application! Completed successfully.";
-        targetFeedback.style.color = varColorString('success-green');
+      if (cleanStringValue(val) === cleanStringValue(expected)) {
+        fb.textContent = "✓ Brilliant! Conversational syntax context match successful.";
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--success-green').trim();
       } else {
-        targetFeedback.textContent = `✗ Discrepancy detected. Correct structural filling requires: "${expectedAnswer}"`;
-        targetFeedback.style.color = varColorString('pink-primary');
+        fb.textContent = `✗ Structural anomaly. Expected text value replacement is: "${expected}"`;
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--pink-primary').trim();
       }
     }
 
-    function evaluateMultipleChoiceSelection(selectedButtonNode, isCorrectFlag) {
-      const parentGrid = document.getElementById('mc-options-box');
-      const allButtons = parentGrid.querySelectorAll('.option-button');
-      const targetFeedback = document.getElementById('mc-feedback');
-
-      // Stop extra input requests once chosen
+    function checkMultipleChoice(buttonNode, isCorrect) {
+      const allButtons = document.getElementById('mc-options-box').querySelectorAll('.option-button');
       allButtons.forEach(b => b.disabled = true);
+      const fb = document.getElementById('mc-feedback');
 
-      if (isCorrectFlag) {
-        selectedButtonNode.classList.add('correct');
-        targetFeedback.textContent = "✓ Precise target assessment verified.";
-        targetFeedback.style.color = varColorString('success-green');
+      if (isCorrect) {
+        buttonNode.classList.add('correct');
+        fb.textContent = "✓ Precise tracking interpretation confirmed.";
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--success-green').trim();
       } else {
-        selectedButtonNode.classList.add('wrong');
-        // Flash right option
-        allButtons.forEach((b, idx) => {
-          if (localPracticeDataRef.mc.options[idx].correct) b.classList.add('correct');
+        buttonNode.classList.add('wrong');
+        allButtons.forEach((b, i) => {
+          if (activeMcItem.options[i].correct) b.classList.add('correct');
         });
-        targetFeedback.textContent = "✗ Inaccurate response node tracking selection.";
-        targetFeedback.style.color = varColorString('pink-primary');
+        fb.textContent = "✗ Inaccurate choice node pathway selection.";
+        fb.style.color = getComputedStyle(document.documentElement).getPropertyValue('--pink-primary').trim();
       }
     }
 
-    function varColorString(varName) {
-      return getComputedStyle(document.documentElement).getPropertyValue(`--${varName}`).trim();
-    }
-
-    // Input Paradigm Sync Event Listeners Hooks
+    // Toggle Input Modality Event Wireframe Bindings
     document.getElementById('input-mode-toggle').addEventListener('change', function(e) {
       characterModeActive = e.target.checked;
       
-      const lblJp = document.getElementById('lbl-jyutping');
-      const lblChar = document.getElementById('lbl-character');
+      const jpLbl = document.getElementById('lbl-jyutping');
+      const charLbl = document.getElementById('lbl-character');
 
-      if(characterModeActive) {
-        lblChar.classList.add('active');
-        lblJp.classList.remove('active');
+      if (characterModeActive) {
+        charLbl.classList.add('active'); jpLbl.classList.remove('active');
       } else {
-        lblJp.classList.add('active');
-        lblChar.classList.remove('active');
+        jpLbl.classList.add('active'); charLbl.classList.remove('active');
       }
-
-      // Live-update practice configuration matrices data loops
-      refreshPracticeQuestionsRendering();
+      resetPracticeArenaLoad();
     });
 
-    // Framework Boot Initialization Routines Entrypoint
-    (function startupEngineBootSequence() {
+    // Boot Sequence Initialization
+    (() => {
       initProgressState();
       paintSidebarRoadmap();
       updateProgressMetrics();
-      
-      // Default label color setup status
       document.getElementById('lbl-jyutping').classList.add('active');
-
-      // Set initial workspace viewport viewing parameters
       loadActiveWorkspaceContent();
     })();
   </script>
-
 </body>
 </html>
