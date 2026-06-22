@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>粵語精英 - Cantonese Professional Learning Suite</title>
+  <style>
+    :root {
+      --bg-darkest: #0a0a0c;
+      --bg-dark: #121216;
+      --bg-surface: #1c1c22;
+      --bg-surface-hover: #26262e;
+      --pink-primary: #ff8da1;
+      --pink-light: #ffb7c5;
+      --pink-dark: #cc5a70;
+      --text-main: #ffffff;
+      --text-muted: #a0a0b0;
+      --text-pink: #ffccd5;
+      --border-color: #2e2e3a;
+      --success-green: #4caf50;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-darkest);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Pinned Global Header Area */
+    header {
+      background-color: var(--bg-dark);
+      border-bottom: 2px solid var(--border-color);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .brand-section h1 {
+      font-size: 1.4rem;
+      color: var(--pink-primary);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-section p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .global-controls {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .overall-progress-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      min-width: 180px;
+    }
+
+    .progress-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .progress-bar-wrapper {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bg-surface);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pink-dark), var(--pink-primary));
+      width: 0%;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Toggle Switch Component */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-surface);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .toggle-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .toggle-label.active {
+      color: var(--pink-primary);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--bg-darkest);
+      transition: .3s;
+      border-radius: 22px;
+      border: 1px solid var(--border-color);
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--text-muted);
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--pink-dark);
+      border-color: var(--pink-primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+      background-color: var(--pink-light);
+    }
+
+    /* Main Workspace Shell */
+    .app-workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation Navigation Map */
+    .sidebar-roadmap {
+      width: 340px;
+      background-color: var(--bg-dark);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .roadmap-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      background-color: rgba(0,0,0,0.2);
+    }
+
+    .module-group {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .module-trigger {
+      width: 100%;
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background-color 0.2s;
+    }
+
+    .module-trigger:hover {
+      background-color: var(--bg-surface);
+    }
+
+    .module-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .module-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .module-group.active .module-title {
+      color: var(--pink-primary);
+    }
+
+    .module-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .lesson-list {
+      background-color: var(--bg-darkest);
+      display: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .module-group.active .lesson-list {
+      display: block;
+      max-height: max-content;
+    }
+
+    .lesson-item {
+      width: 100%;
+      padding: 12px 25px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+
+    .lesson-item:hover {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+    }
+
+    .lesson-item.active {
+      background-color: rgba(255, 141, 161, 0.1);
+      color: var(--pink-primary);
+      border-left-color: var(--pink-primary);
+    }
+
+    .lesson-item.understood {
+      opacity: 0.5;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid var(--text-muted);
+      font-size: 0.6rem;
+    }
+
+    .lesson-item.understood .status-badge {
+      background-color: var(--success-green);
+      border-color: var(--success-green);
+      color: white;
+    }
+
+    /* Studio Content Display Panel */
+    .content-viewport {
+      flex: 1;
+      overflow-y: auto;
+      background-color: var(--bg-darkest);
+      padding: 40px;
+    }
+
+    .lesson-hero-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .lesson-badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      background-color: rgba(255, 141, 161, 0.15);
+      color: var(--pink-primary);
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .lesson-main-title {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .lesson-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+
+    /* Checkbox Styles */
+    .completion-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-pink);
+      user-select: none;
+    }
+
+    .completion-checkbox-label input {
+      display: none;
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--pink-primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .completion-checkbox-label input:checked + .custom-checkbox {
+      background-color: var(--success-green);
+      border-color: var(--success-green);
+    }
+
+    .completion-checkbox-label input:checked + .custom-checkbox::after {
+      content: "✓";
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* Core Linguistic Display Architecture */
+    .linguistic-box {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      padding: 12px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 6px;
+      border-left: 3px solid var(--pink-dark);
+    }
+
+    .lang-row {
+      display: flex;
+      align-items: flex-baseline;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .char-display {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    .jyutping-display {
+      font-size: 1rem;
+      color: var(--pink-primary);
+      font-family: monospace;
+      background-color: rgba(255,141,161,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .phonetic-guide {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .translation-display {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Tab Layout Mechanics */
+    .tab-nav {
+      display: flex;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 25px;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      color: var(--pink-primary);
+    }
+
+    .tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 2px;
+      background-color: var(--pink-primary);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .grid-two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    /* Dialogue Card Formats */
+    .dialogue-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background-color: rgba(0,0,0,0.1);
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .dialogue-turn {
+      display: flex;
+      gap: 15px;
+      max-width: 80%;
+    }
+
+    .dialogue-turn.speaker-A {
+      align-self: flex-start;
+    }
+
+    .dialogue-turn.speaker-B {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .speaker-B .avatar {
+      background-color: var(--bg-surface-hover);
+      border: 1px solid var(--pink-primary);
+    }
+
+    .bubble-content {
+      background-color: var(--bg-surface);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Practice Arena Subcomponents */
+    .arena-section {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .arena-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--text-pink);
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    /* Flashcard Mechanics */
+    .flashcard-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .card-deck {
+      width: 100%;
+      max-width: 400px;
+      height: 220px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .card-deck.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      border: 2px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card-front {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+    }
+
+    .card-back {
+      background-color: var(--bg-surface-hover);
+      color: var(--text-main);
+      transform: rotateY(180deg);
+      border-color: var(--pink-dark);
+    }
+
+    .input-group {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .text-input {
+      flex: 1;
+      background-color: var(--bg-darkest);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px 15px;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .text-input:focus {
+      border-color: var(--pink-primary);
+    }
+
+    .action-btn {
+      background-color: var(--pink-dark);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: var(--pink-primary);
+    }
+
+    .feedback-box {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      min-height: 20px;
+    }
+
+    /* Multiple Choice Formats */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .option-button {
+      width: 100%;
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 20px;
+      color: var(--text-main);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .option-button:hover {
+      background-color: var(--bg-surface-hover);
+      border-color: var(--pink-primary);
+    }
+
+    .option-button.correct {
+      background-color: rgba(76, 175, 80, 0.2);
+      border-color: var(--success-green);
+      color: white;
+    }
+
+    .option-button.wrong {
+      background-color: rgba(204, 90, 112, 0.2);
+      border-color: var(--pink-dark);
+    }
+
+    /* Utility Helpers */
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; height: auto; }
+      .app-workspace { flex-direction: column; height: auto; overflow: visible; }
+      .sidebar-roadmap { width: 100%; height: auto; max-height: 400px; }
+      .content-viewport { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-section">
+      <h1>粵語精英 <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">Cantonese Pro Suite</span></h1>
+      <p>Interactive Masterclass Curriculum</p>
+    </div>
+    
+    <div class="global-controls">
+      <div class="toggle-container">
+        <span class="toggle-label" id="lbl-jyutping">Jyutping Input</span>
+        <label class="switch">
+          <input type="checkbox" id="input-mode-toggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" id="lbl-character">Character Mode</span>
+      </div>
+
+      <div class="overall-progress-container">
+        <span class="progress-label">Total Curriculum Progress: <span id="overall-txt">0%</span></span>
+        <div class="progress-bar-wrapper">
+          <div class="progress-fill" id="overall-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-workspace">
+    
+    <div class="sidebar-roadmap" id="curriculum-sidebar">
+      <div class="roadmap-header">Curriculum Directory</div>
+      </div>
+
+    <div class="content-viewport">
+      
+      <div id="lesson-hero-target"></div>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('study')">Study Material</button>
+        <button class="tab-btn" onclick="switchTab('practice')">Interactive Practice Arena</button>
+      </div>
+
+      <div class="tab-panel active" id="panel-study">
+        <div style="display:flex; flex-direction:column; gap:30px;">
+          <section>
+            <h3 style="color:var(--pink-primary); margin-bottom:15px; font-size:1.1rem; text-transform:uppercase;">Vocabulary Bank</h3>
+            <div class="grid-two-col" id="vocab-target"></div>
+          </section>
+
+          <section>
+            <h3 style="color:var(--pink-primary); margin-bottom:15px; font-size:1.1rem; text-transform:uppercase;">Conversational Dialogues</h3>
+            <div id="dialogue-target"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panel-practice">
+        <div class="arena-section">
+          <h3>Drill 1: Recall & Identification Flashcard</h3>
+          <div class="flashcard-wrapper">
+            <div class="card-deck" id="flashcard" onclick="flipCard()">
+              <div class="card-inner">
+                <div class="card-face card-front" id="card-front-content">--</div>
+                <div class="card-face card-back" id="card-back-content">--</div>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Click card surface area to flip over.</p>
+            <div class="input-group">
+              <input type="text" id="fc-input" class="text-input" placeholder="Verify recall match...">
+              <button class="action-btn" onclick="checkFlashcard()">Submit</button>
+            </div>
+            <div class="feedback-box" id="fc-feedback"></div>
+          </div>
+        </div>
+
+        <div class="arena-section">
+          <h3>Drill 2: Situational Context Cloze</h3>
+          <p id="cloze-prompt" style="font-size:1.1rem; margin-bottom:10px; line-height:1.6;"></p>
+          <p id="cloze-trans" style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;"></p>
+          <div class="input-group">
+            <input type="text" id="cloze-input" class="text-input" placeholder="Type target value...">
+            <button class="action-btn" onclick="checkCloze()">Verify</button>
+          </div>
+          <div class="feedback-box" id="cloze-feedback"></div>
+        </div>
+
+        <div class="arena-section">
+          <h3>Drill 3: Core Audio Interpretation Multiple Choice</h3>
+          <p id="mc-prompt" style="font-size:1.1rem; margin-bottom:15px;"></p>
+          <div class="options-grid" id="mc-options-box"></div>
+          <div class="feedback-box" id="mc-feedback"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Universal App State Engine Variables
+    let currentModuleIdx = 0;
+    let currentLessonIdx = 0;
+    let characterModeActive = false;
+    let userProgressProfile = { understoodLessons: [] };
+
+    // Core High-Fidelity Multi-Tier Curriculum Dataset
+    const databaseCurriculum = [
+      {
+        id: "mod_beginner",
+        title: "1. Beginner Core Foundations",
+        description: "Essential introductory elements, linguistic overview, structural tone profiles, and introductory counting protocols.",
+        lessons: [
+          {
+            title: "L1: Structural Greetings & Salutations",
+            description: "Learn to build interpersonal relations utilizing core native greetings across formal/informal spectra.",
+            vocab: [
+              { char: "你好", jp: "nei5 hou2", phonetic: "Nay Hooh", trans: "Hello (lit. You good)" },
+              { char: "早晨", jp: "zou2 san4", phonetic: "Joes Sun", trans: "Good Morning" },
+              { char: "再見", jp: "zoi3 gin3", phonetic: "Joy Geen", trans: "Goodbye" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "陳生", char: "你好！早晨。", jp: "nei5 hou2! zou2 san4.", trans: "Hello! Good morning." },
+              { speaker: "B", name: "張小姐", char: "早晨！你好嗎？", jp: "zou2 san4! nei5 hou2 maa1?", trans: "Good morning! How are you?" }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "你好", frontJp: "nei5 hou2", correctJp: "nei5 hou2", correctChar: "你好" },
+              cloze: { textChar: "[你好]，早晨！", textJp: "[nei5 hou2], zou2 san4!", trans: "Hello, good morning!", targetJp: "nei5 hou2", targetChar: "你好" },
+              mc: { prompt: "Identify the correct greeting for early mornings (Good Morning):", options: [ {text: "早晨 (zou2 san4)", correct: true}, {text: "再見 (zoi3 gin3)", correct: false}, {text: "你好 (nei5 hou2)", correct: false} ] }
+            }
+          },
+          {
+            title: "L2: Numbers & Numerical Systems",
+            description: "Master counting operations essential for monetary configurations, sizing scales, and dates.",
+            vocab: [
+              { char: "一", jp: "jat1", phonetic: "Yut", trans: "One" },
+              { char: "二", jp: "ji6", phonetic: "Yee", trans: "Two" },
+              { char: "三", jp: "saam1", phonetic: "Saahm", trans: "Three" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Client", char: "一、二、三，夠唔夠？", jp: "jat1, ji6, saam1, gau3 m4 gau3?", trans: "One, two, three, is that enough?" },
+              { speaker: "B", name: "Clerk", char: "唔夠，我要三個。", jp: "m4 gau3, ngo5 jiu3 saam1 go3.", trans: "Not enough, I require three items." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "三", frontJp: "saam1", correctJp: "saam1", correctChar: "三" },
+              cloze: { textChar: "我有[三]個蘋果。", textJp: "ngo5 jau5 [saam1] go3 ping4 gwo2.", trans: "I have three apples.", targetJp: "saam1", targetChar: "三" },
+              mc: { prompt: "Select the accurate representation for numerical 'Two':", options: [ {text: "一 (jat1)", correct: false}, {text: "二 (ji6)", correct: true}, {text: "三 (saam1)", correct: false} ] }
+            }
+          }
+        ]
+      },
+      {
+        id: "mod_elementary",
+        title: "2. Elementary Operational Life",
+        description: "Navigation vectors surrounding foundational public needs: item purchases, dietary intake environments, and basic tracking.",
+        lessons: [
+          {
+            title: "L1: Dining Protocols & Ordering food",
+            description: "How to effectively solicit products, choose tables, and interface inside Cantonese dining halls.",
+            vocab: [
+              { char: "飲茶", jp: "jam2 caa4", phonetic: "Yum Chah", trans: "To drink tea / eat Dim Sum" },
+              { char: "咖啡", jp: "gaa3 fe1", phonetic: "Gah Feh", trans: "Coffee" },
+              { char: "唔該", jp: "m4 goi1", phonetic: "Mm Goy", trans: "Thank you (for services) / Please" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Guest", char: "唔該，我要一杯咖啡。", jp: "m4 goi1, ngo5 jiu3 jat1 bui1 gaa3 fe1.", trans: "Excuse me, I want a cup of coffee." },
+              { speaker: "B", name: "Waiter", char: "好，請等一等。", jp: "hou2, cing2 dang2 jat1 dang2.", trans: "Understood, please wait a moment." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "咖啡", frontJp: "gaa3 fe1", correctJp: "gaa3 fe1", correctChar: "咖啡" },
+              cloze: { textChar: "唔該，我要一杯[咖啡]。", textJp: "m4 goi1, ngo5 jiu3 jat1 bui1 [gaa3 fe1].", trans: "Please, I want a cup of coffee.", targetJp: "gaa3 fe1", targetChar: "咖啡" },
+              mc: { prompt: "Which item means 'to drink tea / eat dim sum'?", options: [ {text: "咖啡 (gaa3 fe1)", correct: false}, {text: "飲茶 (jam2 caa4)", correct: true}, {text: "唔該 (m4 goi1)", correct: false} ] }
+            }
+          },
+          {
+            title: "L2: Commercial Retail Basics",
+            description: "Core phrasing strategies to audit pricing indices and acquire standard market inventory assets.",
+            vocab: [
+              { char: "幾多錢", jp: "gei2 do1 cin2", phonetic: "Gay Doe Cheen", trans: "How much money?" },
+              { char: "平啲", jp: "peng4 di1", phonetic: "Pehng Dee", trans: "Cheaper / discount" },
+              { char: "買", jp: "maai5", phonetic: "Maai", trans: "To buy" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Buyer", char: "唔該，呢個幾多錢？", jp: "m4 goi1, ne1 go3 gei2 do1 cin2?", trans: "Excuse me, how much is this?" },
+              { speaker: "B", name: "Seller", char: "一百蚊，好平喇。", jp: "jat1 baak3 man1, hou2 peng4 laa3.", trans: "One hundred dollars, it is very cheap." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "幾多錢", frontJp: "gei2 do1 cin2", correctJp: "gei2 do1 cin2", correctChar: "幾多錢" },
+              cloze: { textChar: "呢個[幾多錢]？", textJp: "ne1 go3 [gei2 do1 cin2]?", trans: "How much is this?", targetJp: "gei2 do1 cin2", targetChar: "幾多錢" },
+              mc: { prompt: "What phrase represents asking for price or valuation cost?", options: [ {text: "平啲 (peng4 di1)", correct: false}, {text: "買 (maai5)", correct: false}, {text: "幾多錢 (gei2 do1 cin2)", correct: true} ] }
+            }
+          }
+        ]
+      },
+      {
+        id: "mod_intermediate",
+        title: "3. Intermediate Urban Navigation",
+        description: "Executing complex route patterns across mass rapid transit systems, interpreting elements, and community socializing.",
+        lessons: [
+          {
+            title: "L1: Commuter Transit Systems & MTR",
+            description: "Executing precise navigational transitions within rapid subway nodes and public terminal hubs.",
+            vocab: [
+              { char: "地鐵", jp: "dei6 tit3", phonetic: "Day Teet", trans: "MTR / Subway Train" },
+              { char: "巴士", jp: "baa1 si2", phonetic: "Bah See", trans: "Bus" },
+              { char: "點去", jp: "dim2 heoi3", phonetic: "Deem Huuy", trans: "How to go to...?" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Tourist", char: "唔該，地鐵站點去？", jp: "m4 goi1, dei6 tit3 zaam6 dim2 heoi3?", trans: "Excuse me, how do I get to the MTR station?" },
+              { speaker: "B", name: "Local", char: "向前走，就係喇。", jp: "hoeng3 cin4 zau2, zau6 hai6 laa3.", trans: "Walk straight ahead, and there it is." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "地鐵", frontJp: "dei6 tit3", correctJp: "dei6 tit3", correctChar: "地鐵" },
+              cloze: { textChar: "請問[地鐵]站喺邊度？", textJp: "cing2 man6 [dei6 tit3] zaam6 hai2 bin1 dou6?", trans: "May I ask where the MTR station is?", targetJp: "dei6 tit3", targetChar: "地鐵" },
+              mc: { prompt: "Identify the expression meaning 'How do I go to...?'", options: [ {text: "點去 (dim2 heoi3)", correct: true}, {text: "巴士 (baa1 si2)", correct: false}, {text: "地鐵 (dei6 tit3)", correct: false} ] }
+            }
+          },
+          {
+            title: "L2: Urban Weather & Socializing",
+            description: "Formulating casual interpersonal small-talk and planning meetups based on environmental updates.",
+            vocab: [
+              { char: "好熱", jp: "hou2 jit6", phonetic: "Hooh Yeet", trans: "Very Hot" },
+              { char: "落雨", jp: "lok6 jyu5", phonetic: "Lock Yuu", trans: "Raining" },
+              { char: "盆友", jp: "pang4 jau5", phonetic: "Pung Yau", trans: "Friend" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Alex", char: "今日好熱，去邊度玩？", jp: "gam1 jat1 hou2 jit6, heoi3 bin1 dou6 waan2?", trans: "Today is very hot, where are we going to hang out?" },
+              { speaker: "B", name: "Ben", char: "去商場，唔怕落雨。", jp: "heoi3 soeng1 coeng4, m4 paa3 lok6 jyu5.", trans: "Let's go to the mall, no need to fear the rain." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "落雨", frontJp: "lok6 jyu5", correctJp: "lok6 jyu5", correctChar: "落雨" },
+              cloze: { textChar: "出面好似要[落雨]喇。", textJp: "ceot1 min6 hou2 ci5 jiu3 [lok6 jyu5] laa3.", trans: "It looks like it is going to rain outside.", targetJp: "lok6 jyu5", targetChar: "落雨" },
+              mc: { prompt: "What is the translation of 'Very Hot'?", options: [ {text: "落雨 (lok6 jyu5)", correct: false}, {text: "好熱 (hou2 jit6)", correct: true}, {text: "盆友 (pang4 jau5)", correct: false} ] }
+            }
+          }
+        ]
+      },
+      {
+        id: "mod_upper_intermediate",
+        title: "4. Upper-Intermediate Workplace",
+        description: "Corporate operational fluency patterns: hosting status sync updates, briefing dependencies, and corporate correspondence syntax.",
+        lessons: [
+          {
+            title: "L1: Meeting Coordination Architecture",
+            description: "Command and report functional project tracks accurately inside corporate operational review boards.",
+            vocab: [
+              { char: "開會", jp: "hoi1 mui6", phonetic: "Hoy Mui", trans: "To hold a meeting" },
+              { char: "報告", jp: "bou3 gou3", phonetic: "Booh Gooh", trans: "Report / Presentation" },
+              { char: "進度", jp: "zeon3 dou6", phonetic: "Zon Doe", trans: "Schedule / Progress tracking" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Manager", char: "我哋聽日要開會討論進度。", jp: "ngo5 dei6 ting1 jat1 jiu3 hoi1 mui6 tou2 leon6 zeon3 dou6.", trans: "We need to hold a meeting tomorrow to discuss progress." },
+              { speaker: "B", name: "Lead", char: "好，我準備好份報告喇。", jp: "hou2, ngo5 zeon2 bei6 hou2 fan6 bou3 gou3 laa3.", trans: "Understood, I have finalized the data report." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "開會", frontJp: "hoi1 mui6", correctJp: "hoi1 mui6", correctChar: "開會" },
+              cloze: { textChar: "我哋而家入會議室[開會]。", textJp: "ngo5 dei6 ji4 gaa1 jap6 hui1 ji5 sat1 [hoi1 mui6].", trans: "We are entering the conference room now to hold a meeting.", targetJp: "hoi1 mui6", targetChar: "開會" },
+              mc: { prompt: "Which token translates to a corporate performance 'Report'?", options: [ {text: "進度 (zeon3 dou6)", correct: false}, {text: "開會 (hoi1 mui6)", correct: false}, {text: "報告 (bou3 gou3)", correct: true} ] }
+            }
+          },
+          {
+            title: "L2: Digital Business Mail Syntax",
+            description: "Executing crisp professional digital communication patterns while addressing external operational points.",
+            vocab: [
+              { char: "電郵", jp: "din6 jau4", phonetic: "Deen Yau", trans: "Email" },
+              { char: "請參閱", jp: "cing2 caam1 jyut6", phonetic: "Ching Chaam Yuut", trans: "Please refer to / find attached" },
+              { char: "回覆", jp: "wui4 fuk1", phonetic: "Wui Fook", trans: "To reply / respond" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Staff", char: "經理，我發咗封電郵比你。", jp: "ging1 lei5, ngo5 faat1 zo2 fung1 din6 jau4 bei2 nei5.", trans: "Manager, I have transmitted an email dispatch to you." },
+              { speaker: "B", name: "Manager", char: "好，我下晝會回覆你。", jp: "hou2, ngo5 haa6 zau3 wui4 fuk1 nei5.", trans: "Understood, I shall deliver a comprehensive response this afternoon." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "請參閱", frontJp: "cing2 caam1 jyut6", correctJp: "cing2 caam1 jyut6", correctChar: "請參閱" },
+              cloze: { textChar: "[請參閱]附件中嘅最新計劃書。", textJp: "[cing2 caam1 jyut6] fu6 gin2 zung1 ge3 zui3 san1 gai3 waak6 syu1.", trans: "Please refer to the latest project proposal document in the attachment.", targetJp: "cing2 caam1 jyut6", targetChar: "請參閱" },
+              mc: { prompt: "Select the term for performing a written 'Reply':", options: [ {text: "回覆 (wui4 fuk1)", correct: true}, {text: "電郵 (din6 jau4)", correct: false}, {text: "請參閱 (cing2 caam1 jyut6)", correct: false} ] }
+            }
+          }
+        ]
+      },
+      {
+        id: "mod_advanced",
+        title: "5. Advanced Corporate Diplomacy",
+        description: "Linguistic structures for market strategy alignment sessions, strategic negotiation loops, and high-level legal interpretations.",
+        lessons: [
+          {
+            title: "L1: Formal Commercial Bargaining Loops",
+            description: "Tactful execution of structural compromises and alignment mechanics without generating relational abrasion.",
+            vocab: [
+              { char: "談判", jp: "taam4 pun3", phonetic: "Taahm Poon", trans: "Negotiation / Commercial bargaining" },
+              { char: "合作", jp: "hap6 zok3", phonetic: "Hup Zock", trans: "Collaboration / Partnership" },
+              { char: "利益", jp: "lei6 jik1", phonetic: "Lay Yick", trans: "Mutual Benefit / Profit interest" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Director A", char: "今次談判對雙方都有戰略利益。", jp: "gam1 ci1 taam4 pun3 deoi3 soeng1 fong1 dou1 jau5 zin3 loek6 lei6 jik1.", trans: "This negotiation process yields deep strategic value for both enterprise entities." },
+              { speaker: "B", name: "Director B", char: "同意，期待長遠合作。", jp: "tung1 ji3, kei4 doi6 coeng4 jyun5 hap6 zok3.", trans: "Concurred. We anticipate a long-term commercial partnership framework." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "談判", frontJp: "taam4 pun3", correctJp: "taam4 pun3", correctChar: "談判" },
+              cloze: { textChar: "我哋聽日會同對方代表進行[談判]。", textJp: "ngo5 dei6 ting1 jat1 wui4 tung4 deoi3 fong1 doi6 biu2 zeon3 hang4 [taam4 pun3].", trans: "We will proceed with high-level negotiations with their representatives tomorrow.", targetJp: "taam4 pun3", targetChar: "談判" },
+              mc: { prompt: "What word is defined as 'collaboration / working in partnership'?", options: [ {text: "利益 (lei6 jik1)", correct: false}, {text: "合作 (hap6 zok3)", correct: true}, {text: "談判 (taam4 pun3)", correct: false} ] }
+            }
+          },
+          {
+            title: "L2: Media Analysis & Economic News",
+            description: "Interpreting fiscal dispatches, policy edits, and macroeconomic performance reporting streams.",
+            vocab: [
+              { char: "新聞", jp: "san1 man4", phonetic: "Sun Mun", trans: "News Media Dispatches" },
+              { char: "經濟", jp: "ging1 zai3", phonetic: "Ging Zai", trans: "Macroeconomics / Financial framework" },
+              { char: "市場", jp: "si5 coeng4", phonetic: "See Choeng", trans: "Open Market Environment" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Analyst A", char: "睇財經新聞，本地市場開始回升。", jp: "tai2 coi4 ging1 san1 man4, boon2 dei6 si5 coeng4 hoi1 ci2 wui4 sing1.", trans: "Reviewing financial news broadcasts, local market indexes are recovering." },
+              { speaker: "B", name: "Analyst B", char: "但環球經濟依然不明朗。", jp: "daan6 waan4 kau4 ging1 zai3 ji1 jin4 bat1 ming4 long5.", trans: "However, global macroeconomic conditions remain fundamentally volatile." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "經濟", frontJp: "ging1 zai3", correctJp: "ging1 zai3", correctChar: "經濟" },
+              cloze: { textChar: "呢份報告分析咗最新嘅[市場]變動。", textJp: "ne1 fan6 bou3 gou3 fan1 sik1 zo2 zui3 san1 ge3 [si5 coeng4] bin3 dung6.", trans: "This analytical deployment covers critical structural modifications across the open market.", targetJp: "si5 coeng4", targetChar: "市場" },
+              mc: { prompt: "Which term translates to public 'News Media Dispatches'?", options: [ {text: "新聞 (san1 man4)", correct: true}, {text: "經濟 (ging1 zai3)", correct: false}, {text: "市場 (si5 coeng4)", correct: false} ] }
+            }
+          }
+        ]
+      },
+      {
+        id: "mod_professional",
+        title: "6. Legal & C-Suite Governance",
+        description: "Max-tier legal syntax formulation, cross-border corporate governance alignment, and boardroom defense structures.",
+        lessons: [
+          {
+            title: "L1: Commercial Contracts & Legal Protections",
+            description: "Auditing corporate transactional risk terms and structuring binding risk mitigation clauses.",
+            vocab: [
+              { char: "合約", jp: "hap6 joek3", phonetic: "Hup Joek", trans: "Binding Commercial Contract" },
+              { char: "法律", jp: "faat3 leot6", phonetic: "Faat Leot", trans: "Jurisprudence System / Law" },
+              { char: "條款", jp: "tiu4 fun2", phonetic: "Tiu Foon", trans: "Specific Legal Provision / Clause" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "Counsel", char: "簽合約前，要睇清每項條款。", jp: "cim1 hap6 joek3 cin4, jiu3 tai2 cing1 mui5 hong6 tiu4 fun2.", trans: "Prior to contract execution, verify the structural risk of every single provision." },
+              { speaker: "B", name: "CEO", char: "好，確保完全符合法律要求。", jp: "hou2, kok3 bou2 jyun4 cyun4 fu4 hap6 faat3 leot6 jiu3 kau2.", trans: "Understood. Ensure complete alignment with all statutory jurisprudence benchmarks." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "條款", frontJp: "tiu4 fun2", correctJp: "tiu4 fun2", correctChar: "條款" },
+              cloze: { textChar: "我哋需要律師修改[合約]嘅保障內容。", textJp: "ngo5 dei6 seoi1 jiu3 leot6 si1 sau1 goi2 [hap6 joek3] ge3 bou2 zoeng3 noi6 jung4.", trans: "We require general counsel to modify the core liability protection scope inside the contract.", targetJp: "hap6 joek3", targetChar: "合約" },
+              mc: { prompt: "Identify the token representing 'Jurisprudence System / Law':", options: [ {text: "條款 (tiu4 fun2)", correct: false}, {text: "法律 (faat3 leot6)", correct: true}, {text: "合約 (hap6 joek3)", correct: false} ] }
+            }
+          },
+          {
+            title: "L2: Shareholder Assemblies & Keynotes",
+            description: "Delivering institutional-grade performance breakdowns during investor calls and board presentations.",
+            vocab: [
+              { char: "演講", jp: "jin2 zong2", phonetic: "Yeen Zong", trans: "Executive Address / Keynote Presentation" },
+              { char: "股東", jp: "gu2 dung1", phonetic: "Goo Dung", trans: "Equity Shareholder / Investor Asset" },
+              { char: "策略", jp: "caak3 loek6", phonetic: "Chaak Loek", trans: "High-level Corporate Strategy" }
+            ],
+            dialogue: [
+              { speaker: "A", name: "VP Finance", char: "董事長嘅演講令股東好有信心。", jp: "dung3 si6 zoeng2 ge3 jin2 zong2 ling6 gu2 dung1 hou2 jau5 seon3 sam1.", trans: "The Chairman's keynote address instilled deep confidence across institutional equity investors." },
+              { speaker: "B", name: "Director C", char: "因為我哋嘅長遠策略非常清晰。", jp: "jan1 wai6 ngo5 dei6 ge3 coeng4 jyun5 caak3 loek6 fei1 soeng4 cing1 sik1.", trans: "Because our long-term market strategy architecture is transparently defined." }
+            ],
+            practice: {
+              fcQuestion: { frontChar: "股東", frontJp: "gu2 dung1", correctJp: "gu2 dung1", correctChar: "股東" },
+              cloze: { textChar: "聽日我會向[股東]大會發表最新發展策略。", textJp: "ting1 jat1 ngo5 wui4 hoeng3 [gu2 dung1] daai6 wui5 faat3 biu2 zui3 san1 faat3 zin3 caak3 loek6.", trans: "Tomorrow I shall present our updated corporate expansion strategy directly to the general shareholder assembly.", targetJp: "gu2 dung1", targetChar: "股東" },
+              mc: { prompt: "What word refers to 'High-level Corporate Strategy'?", options: [ {text: "策略 (caak3 loek6)", correct: true}, {text: "演講 (jin2 zong2)", correct: false}, {text: "股東 (gu2 dung1)", correct: false} ] }
+            }
+          }
+        ]
+      }
+    ];
+
+    // Local Storage Progress Management Infrastructure
+    function initProgressState() {
+      const stored = localStorage.getItem('粵語精英_progress_v2');
+      if (stored) {
+        try {
+          userProgressProfile = JSON.parse(stored);
+        } catch(e) {
+          userProgressProfile = { understoodLessons: [] };
+        }
+      } else {
+        userProgressProfile = { understoodLessons: [] };
+      }
+    }
+
+    function saveProgressState() {
+      localStorage.setItem('粵語精英_progress_v2', JSON.stringify(userProgressProfile));
+      updateProgressMetrics();
+    }
+
+    // Dynamic View Calculation & Progress Bars Compilation
+    function updateProgressMetrics() {
+      let absoluteLessonsCount = 0;
+      let absoluteUnderstoodCount = 0;
+
+      databaseCurriculum.forEach((mod, mIdx) => {
+        let modCount = 0;
+        let modUnderstood = 0;
+
+        mod.lessons.forEach((les, lIdx) => {
+          absoluteLessonsCount++;
+          modCount++;
+          const uniqueKey = `${mIdx}_${lIdx}`;
+          
+          // Apply visual classes to dynamic sidebar node hooks
+          const domSidebarNode = document.getElementById(`side-les-${mIdx}-${lIdx}`);
+          if (userProgressProfile.understoodLessons.includes(uniqueKey)) {
+            absoluteUnderstoodCount++;
+            modUnderstood++;
+            if (domSidebarNode) domSidebarNode.classList.add('understood');
+          } else {
+            if (domSidebarNode) domSidebarNode.classList.remove('understood');
+          }
+        });
+
+        // Compute local module metric data nodes
+        const modPercentage = Math.round((modUnderstood / modCount) * 100);
+        const modPercentTextNode = document.getElementById(`mod-pct-txt-${mIdx}`);
+        if(modPercentTextNode) modPercentTextNode.textContent = `${modPercentage}%`;
+      });
+
+      // Compute general summary status profiles
+      const overallPercent = absoluteLessonsCount > 0 ? Math.round((absoluteUnderstoodCount / absoluteLessonsCount) * 100) : 0;
+      document.getElementById('overall-txt').textContent = `${overallPercent}%`;
+      document.getElementById('overall-bar').style.width = `${overallPercent}%`;
+    }
+
+    // Dynamic Curriculum Navigation Map Generation Engine
+    function paintSidebarRoadmap() {
+      const sidebarRoot = document.getElementById('curriculum-sidebar');
+      // Purge everything except header placeholder
+      const headerHtml = sidebarRoot.innerHTML;
+      sidebarRoot.innerHTML = headerHtml;
+
+      databaseCurriculum.forEach((mod, mIdx) => {
+        const modBox = document.createElement('div');
+        modBox.classList.add('module-group');
+        modBox.id = `mod-group-${mIdx}`;
+        if (mIdx === currentModuleIdx) modBox.classList.add('active');
+
+        let innerLessonsMarkup = "";
+        mod.lessons.forEach((les, lIdx) => {
+          const isActive = (mIdx === currentModuleIdx && lIdx === currentLessonIdx) ? "active" : "";
+          innerLessonsMarkup += `
+            <button class="lesson-item ${isActive}" id="side-les-${mIdx}-${lIdx}" onclick="selectLessonRoute(${mIdx}, ${lIdx})">
+              <span>${les.title}</span>
+              <span class="status-badge">✓</span>
+            </button>
+          `;
+        });
+
+        modBox.innerHTML = `
+          <button class="module-trigger" onclick="toggleModuleFold(${mIdx})">
+            <div class="module-title-row">
+              <span class="module-title">${mod.title}</span>
+              <span style="font-size:0.75rem; color:var(--pink-primary);" id="mod-pct-txt-${mIdx}">0%</span>
+            </div>
+            <div class="module-meta">
+              <span>${mod.lessons.length} Modules / Lessons</span>
+            </div>
+          </button>
+          <div class="lesson-list" id="lesson-container-${mIdx}">
+            ${innerLessonsMarkup}
+          </div>
+        `;
+        sidebarRoot.appendChild(modBox);
+      });
+    }
+
+    function toggleModuleFold(mIdx) {
+      const allGroups = document.querySelectorAll('.module-group');
+      allGroups.forEach((g, idx) => {
+        if(idx === mIdx) {
+          g.classList.add('active');
+        } else {
+          g.classList.remove('active');
+        }
+      });
+    }
+
+    function selectLessonRoute(mIdx, lIdx) {
+      // Deactivate older dynamic tracker elements
+      const olderActive = document.querySelector('.lesson-item.active');
+      if (olderActive) olderActive.classList.remove('active');
+
+      currentModuleIdx = mIdx;
+      currentLessonIdx = lIdx;
+
+      const currentGroup = document.getElementById(`mod-group-${mIdx}`);
+      if(currentGroup) toggleModuleFold(mIdx);
+
+      const targetedSidebarNode = document.getElementById(`side-les-${mIdx}-${lIdx}`);
+      if (targetedSidebarNode) targetedSidebarNode.classList.add('active');
+
+      loadActiveWorkspaceContent();
+    }
+
+    // Active Core Workspace Compilation Rendering Core Engine
+    function loadActiveWorkspaceContent() {
+      const activeModule = databaseCurriculum[currentModuleIdx];
+      const activeLesson = activeModule.lessons[currentLessonIdx];
+      const uniqueKey = `${currentModuleIdx}_${currentLessonIdx}`;
+      const hasChecked = userProgressProfile.understoodLessons.includes(uniqueKey);
+
+      // 1. Compile Hero presentation card elements
+      const heroTarget = document.getElementById('lesson-hero-target');
+      heroTarget.innerHTML = `
+        <div class="lesson-badge">${activeModule.title}</div>
+        <h2 class="lesson-main-title">${activeLesson.title}</h2>
+        <p class="lesson-desc">${activeLesson.description}</p>
+        <div class="action-row">
+          <label class="completion-checkbox-label">
+            <input type="checkbox" id="chk-understood-state" ${hasChecked ? 'checked' : ''} onchange="toggleUnderstoodAction(this)">
+            <span class="custom-checkbox"></span>
+            <span>I Already Understand This Material</span>
+          </label>
+        </div>
+      `;
+
+      // 2. Load vocabularies parsing systems
+      const vocabTarget = document.getElementById('vocab-target');
+      vocabTarget.innerHTML = "";
+      activeLesson.vocab.forEach(v => {
+        const itemBox = document.createElement('div');
+        itemBox.classList.add('linguistic-box');
+        itemBox.innerHTML = `
+          <div class="lang-row">
+            <span class="char-display">${v.char}</span>
+            <span class="jyutping-display">${v.jp}</span>
+            <span class="phonetic-guide">Pronounced: "${v.phonetic}"</span>
+          </div>
+          <div class="translation-display">${v.trans}</div>
+        `;
+        vocabTarget.appendChild(itemBox);
+      });
+
+      // 3. Parse Conversations Matrix Dialogues
+      const dialogueTarget = document.getElementById('dialogue-target');
+      dialogueTarget.innerHTML = "";
+      const dContainer = document.createElement('div');
+      dContainer.classList.add('dialogue-container');
+
+      activeLesson.dialogue.forEach(d => {
+        const turnBox = document.createElement('div');
+        turnBox.classList.add('dialogue-turn', `speaker-${d.speaker}`);
+        turnBox.innerHTML = `
+          <div class="avatar">${d.name[0]}</div>
+          <div class="bubble-content">
+            <div style="font-size:0.75rem; color:var(--pink-light); margin-bottom:4px;">${d.name} (${d.speaker})</div>
+            <div class="char-display" style="font-size:1.25rem; margin-bottom:4px;">${d.char}</div>
+            <div class="jyutping-display" style="display:inline-block; margin-bottom:6px;">${d.jp}</div>
+            <div class="translation-display" style="margin-top:0; border-top:1px solid rgba(255,255,255,0.05); padding-top:4px;">${d.trans}</div>
+          </div>
+        `;
+        dContainer.appendChild(turnBox);
+      });
+      dialogueTarget.appendChild(dContainer);
+
+      // 4. Regenerate Interactive Practice Tasks parameters
+      resetPracticeArena(activeLesson.practice);
+    }
+
+    function toggleUnderstoodAction(checkboxElement) {
+      const uniqueKey = `${currentModuleIdx}_${currentLessonIdx}`;
+      if (checkboxElement.checked) {
+        if (!userProgressProfile.understoodLessons.includes(uniqueKey)) {
+          userProgressProfile.understoodLessons.push(uniqueKey);
+        }
+      } else {
+        userProgressProfile.understoodLessons = userProgressProfile.understoodLessons.filter(k => k !== uniqueKey);
+      }
+      saveProgressState();
+    }
+
+    function switchTab(targetTabId) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.tab-panel');
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Re-engage accurate active layout handles
+      const clickedTab = Array.from(tabs).find(t => t.textContent.toLowerCase().includes(targetTabId));
+      if(clickedTab) clickedTab.classList.add('active');
+
+      const targetPanel = document.getElementById(`panel-${targetTabId}`);
+      if(targetPanel) targetPanel.classList.add('active');
+    }
+
+    // Practice Arena Mechanics Processing Engines
+    let localPracticeDataRef = null;
+
+    function resetPracticeArena(practicePayload) {
+      localPracticeDataRef = practicePayload;
+
+      // Reset components UI feedback layers
+      document.getElementById('fc-feedback').textContent = "";
+      document.getElementById('fc-feedback').className = "feedback-box";
+      document.getElementById('fc-input').value = "";
+      document.getElementById('flashcard').classList.remove('flipped');
+
+      document.getElementById('cloze-feedback').textContent = "";
+      document.getElementById('cloze-feedback').className = "feedback-box";
+      document.getElementById('cloze-input').value = "";
+
+      document.getElementById('mc-feedback').textContent = "";
+      document.getElementById('mc-feedback').className = "feedback-box";
+
+      // Render items dynamic depending on mode parameters switches
+      refreshPracticeQuestionsRendering();
+    }
+
+    function refreshPracticeQuestionsRendering() {
+      if(!localPracticeDataRef) return;
+
+      // A. Populate flashcards labels elements
+      const frontContent = document.getElementById('card-front-content');
+      const backContent = document.getElementById('card-back-content');
+
+      if (characterModeActive) {
+        frontContent.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);">Identify Character</span><br><span class="jyutping-display">${localPracticeDataRef.fcQuestion.frontJp}</span>`;
+        backContent.innerHTML = `<span style="font-size:0.8rem; color:var(--pink-light);">Correct Match</span><br><span class="char-display" style="font-size:2rem;">${localPracticeDataRef.fcQuestion.correctChar}</span>`;
+        document.getElementById('fc-input').placeholder = "Type target Chinese characters...";
+      } else {
+        frontContent.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);">Identify Jyutping</span><br><span class="char-display" style="font-size:2rem;">${localPracticeDataRef.fcQuestion.frontChar}</span>`;
+        backContent.innerHTML = `<span style="font-size:0.8rem; color:var(--pink-light);">Correct Match</span><br><span class="jyutping-display">${localPracticeDataRef.fcQuestion.correctJp}</span>`;
+        document.getElementById('fc-input').placeholder = "Type target romanized Jyutping digits...";
+      }
+
+      // B. Populate cloze text block strings placeholders
+      const promptEl = document.getElementById('cloze-prompt');
+      document.getElementById('cloze-trans').textContent = localPracticeDataRef.cloze.trans;
+
+      if(characterModeActive) {
+        promptEl.textContent = localPracticeDataRef.cloze.textChar;
+        document.getElementById('cloze-input').placeholder = "Input matching characters...";
+      } else {
+        promptEl.textContent = localPracticeDataRef.cloze.textJp;
+        document.getElementById('cloze-input').placeholder = "Input matching jyutping numerical code...";
+      }
+
+      // C. Render MC items questions block modules
+      document.getElementById('mc-prompt').textContent = localPracticeDataRef.mc.prompt;
+      const optionsBox = document.getElementById('mc-options-box');
+      optionsBox.innerHTML = "";
+
+      localPracticeDataRef.mc.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.classList.add('option-button');
+        btn.textContent = opt.text;
+        btn.onclick = () => evaluateMultipleChoiceSelection(btn, opt.correct);
+        optionsBox.appendChild(btn);
+      });
+    }
+
+    function flipCard() {
+      document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    // Dynamic Sanitization and Verification Match Parsers
+    function normalizeStringContent(str) {
+      return str.toLowerCase().trim().replace(/\s+/g, '').replace(/[^a-z0-9\u4e00-\u9fa5]/g, '');
+    }
+
+    function checkFlashcard() {
+      const inputVal = document.getElementById('fc-input').value;
+      const targetFeedback = document.getElementById('fc-feedback');
+      
+      const parsedUser = normalizeStringContent(inputVal);
+      const expectedAnswer = characterModeActive ? localPracticeDataRef.fcQuestion.correctChar : localPracticeDataRef.fcQuestion.correctJp;
+      const parsedExpected = normalizeStringContent(expectedAnswer);
+
+      // Force card rotation loop mechanism reveal anyway
+      document.getElementById('flashcard').classList.add('flipped');
+
+      if (parsedUser === parsedExpected) {
+        targetFeedback.textContent = "✓ Excellence! Identification verified perfectly.";
+        targetFeedback.style.color = varColorString('success-green');
+      } else {
+        targetFeedback.textContent = `✗ Inaccurate. Expected value configuration: "${expectedAnswer}"`;
+        targetFeedback.style.color = varColorString('pink-primary');
+      }
+    }
+
+    function checkCloze() {
+      const inputVal = document.getElementById('cloze-input').value;
+      const targetFeedback = document.getElementById('cloze-feedback');
+
+      const parsedUser = normalizeStringContent(inputVal);
+      const expectedAnswer = characterModeActive ? localPracticeDataRef.cloze.targetChar : localPracticeDataRef.cloze.targetJp;
+      const parsedExpected = normalizeStringContent(expectedAnswer);
+
+      if (parsedUser === parsedExpected) {
+        targetFeedback.textContent = "✓ Brilliant context application! Completed successfully.";
+        targetFeedback.style.color = varColorString('success-green');
+      } else {
+        targetFeedback.textContent = `✗ Discrepancy detected. Correct structural filling requires: "${expectedAnswer}"`;
+        targetFeedback.style.color = varColorString('pink-primary');
+      }
+    }
+
+    function evaluateMultipleChoiceSelection(selectedButtonNode, isCorrectFlag) {
+      const parentGrid = document.getElementById('mc-options-box');
+      const allButtons = parentGrid.querySelectorAll('.option-button');
+      const targetFeedback = document.getElementById('mc-feedback');
+
+      // Stop extra input requests once chosen
+      allButtons.forEach(b => b.disabled = true);
+
+      if (isCorrectFlag) {
+        selectedButtonNode.classList.add('correct');
+        targetFeedback.textContent = "✓ Precise target assessment verified.";
+        targetFeedback.style.color = varColorString('success-green');
+      } else {
+        selectedButtonNode.classList.add('wrong');
+        // Flash right option
+        allButtons.forEach((b, idx) => {
+          if (localPracticeDataRef.mc.options[idx].correct) b.classList.add('correct');
+        });
+        targetFeedback.textContent = "✗ Inaccurate response node tracking selection.";
+        targetFeedback.style.color = varColorString('pink-primary');
+      }
+    }
+
+    function varColorString(varName) {
+      return getComputedStyle(document.documentElement).getPropertyValue(`--${varName}`).trim();
+    }
+
+    // Input Paradigm Sync Event Listeners Hooks
+    document.getElementById('input-mode-toggle').addEventListener('change', function(e) {
+      characterModeActive = e.target.checked;
+      
+      const lblJp = document.getElementById('lbl-jyutping');
+      const lblChar = document.getElementById('lbl-character');
+
+      if(characterModeActive) {
+        lblChar.classList.add('active');
+        lblJp.classList.remove('active');
+      } else {
+        lblJp.classList.add('active');
+        lblChar.classList.remove('active');
+      }
+
+      // Live-update practice configuration matrices data loops
+      refreshPracticeQuestionsRendering();
+    });
+
+    // Framework Boot Initialization Routines Entrypoint
+    (function startupEngineBootSequence() {
+      initProgressState();
+      paintSidebarRoadmap();
+      updateProgressMetrics();
+      
+      // Default label color setup status
+      document.getElementById('lbl-jyutping').classList.add('active');
+
+      // Set initial workspace viewport viewing parameters
+      loadActiveWorkspaceContent();
+    })();
+  </script>
+
+</body>
+</html>
